@@ -11,7 +11,7 @@ public class Player {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
+    public long id;
     private String userName;
 
     public Player() { }
