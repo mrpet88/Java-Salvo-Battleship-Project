@@ -1,8 +1,6 @@
 package com.codeoftheweb.salvo;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -29,6 +27,10 @@ public class Player {
 
     public String getUserName() {
         return userName;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void setUserName(String userName) {

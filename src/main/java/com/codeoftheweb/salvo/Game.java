@@ -3,9 +3,7 @@ package com.codeoftheweb.salvo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -38,6 +36,14 @@ public class Game {
         gamePlayers.add(gamePlayer);
     }
 
+    public Set<GamePlayer> getGamePlayers() {
+        return gamePlayers;
+    }
+
+    public void setGamePlayers(Set<GamePlayer> gamePlayers) {
+        this.gamePlayers = gamePlayers;
+    }
+
     public long getId() {
         return id;
     }
@@ -50,4 +56,6 @@ public class Game {
     public List<Player> getPlayers() {
         return gamePlayers.stream().map(gp -> gp.getPlayer()).collect(toList());
     }
+
+
 }

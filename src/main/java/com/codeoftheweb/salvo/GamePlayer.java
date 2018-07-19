@@ -50,6 +50,10 @@ public class GamePlayer {
         this.date = date;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public GamePlayer(Game game, Player player, Date date) {
         this.game = game;
         this.player = player;
