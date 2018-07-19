@@ -38,6 +38,13 @@ public class Game {
         gamePlayers.add(gamePlayer);
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     @JsonIgnore
     public List<Player> getPlayers() {
