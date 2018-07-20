@@ -2,32 +2,33 @@ var main = new Vue({
     el: '#VueMain',
     data: {
         games: [],
-        dates: [],
+        listObjects:[],
     },
     methods: {
-        date: function () {
-            var onlyDates = [];
-            
+        makeObject: function () {
+            var listObject = [];
             for (var i = 0; i < this.games.length; i++) {
-                var eachListObject= { 
-                    timestamp: new Date(this.games[i].created),
-                    players: new Date(this.games[i].gamePlayers),
-                    timestamp: new Date(this.games[i].created),
-                    
-                
+                var date = new Date(this.games[i].created).toLocaleString()
+                var playerOne = this.games[i].gamePlayers["0"].player.userName;
+                if (this.games[i].gamePlayers.length > 1) {
+                    var playerTwo = this.games[i].gamePlayers["1"].player.userName;
                 }
-                timestamp = new Date(this.games[i].created)
-                onlyDates.push(timestamp)
-//                console.log(onlyDates);
+                else {
+                    var playerTwo = 'JOIN';
+                }
+                listObject[i] = {
+                    'date': date,
+                    'playerOne': playerOne,
+                    'playerTwo': playerTwo,
+                }
             }
-            main.dates = onlyDates;
+            this.listObjects=listObject;
+            console.log(this.listObjects);
         }
     }
 });
 
 start();
-console.log("outside");
-
 
 function start() {
     console.log(1);
@@ -63,13 +64,8 @@ function onDataFetchFailed(error) {
 function onConversionToJsonSuccessful(json) {
     console.log("success!!!!", json);
     data = json;
-    //    
-    //    console.log(data);
     main.games = data;
-    main.date()
-    //    main.teams = data.teams;
-
-
+    main.makeObject()
 }
 
 function onConversionToJsonFailed() {
