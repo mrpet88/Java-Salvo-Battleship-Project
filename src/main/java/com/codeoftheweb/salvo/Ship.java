@@ -1,6 +1,8 @@
 package com.codeoftheweb.salvo;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Ship {
@@ -24,6 +26,10 @@ public class Ship {
     public long getId() {
         return id;
     }
+    @ElementCollection
+    @Column(name="location")
+    private List<String> locations = new ArrayList<>();
+
     public Ship(){}
 
     public Ship(String shipType){
@@ -36,5 +42,18 @@ public class Ship {
 
     public void setShipType(String shipType) {
         this.shipType = shipType;
+    }
+         public Ship(String shipType, GamePlayer gamePlayer, List<String> locations) {
+            this.shipType = shipType;
+            this.gamePlayer = gamePlayer;
+            this.locations = locations;
+    }
+
+    public List<String> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<String> locations) {
+        this.locations = locations;
     }
 }

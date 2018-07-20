@@ -5,7 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -21,17 +23,7 @@ public class SalvoApplication {
                                       ShipRepository shipRepository) {
         return (args) -> {
 
-            Ship ship1=new Ship("Carrier");
-            Ship ship2=new Ship("Battleship");
-            Ship ship3=new Ship("Submarine");
-            Ship ship4=new Ship("Destroyer");
-            Ship ship5=new Ship("Patrol Boat");
 
-            shipRepository.save(ship1);
-            shipRepository.save(ship2);
-            shipRepository.save(ship3);
-            shipRepository.save(ship4);
-            shipRepository.save(ship5);
 
             Game game1 = new Game();
             Game game2 = new Game();
@@ -110,6 +102,23 @@ public class SalvoApplication {
             gamePlayerRepository.save(gamePlayer12);
             gamePlayerRepository.save(gamePlayer13);
             gamePlayerRepository.save(gamePlayer14);
+
+
+            List<String>location1 = Arrays.asList("H1","H2","H3");
+
+            Ship ship1=new Ship("Carrier", gamePlayer1, location1);
+            Ship ship2=new Ship("Battleship");
+            Ship ship3=new Ship("Submarine");
+            Ship ship4=new Ship("Destroyer");
+            Ship ship5=new Ship("Patrol Boat");
+
+            shipRepository.save(ship1);
+            shipRepository.save(ship2);
+            shipRepository.save(ship3);
+            shipRepository.save(ship4);
+            shipRepository.save(ship5);
+
+
         };
     }
 }
