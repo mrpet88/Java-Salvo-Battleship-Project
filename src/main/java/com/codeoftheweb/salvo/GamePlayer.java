@@ -1,10 +1,12 @@
 package com.codeoftheweb.salvo;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 public class GamePlayer {
+
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     public long id;
@@ -18,9 +20,12 @@ public class GamePlayer {
     @JoinColumn(name="game_id")
     private Game game;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name="date_id")
-//    private Date date;
+    @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
+    Set<Ship> ship = new HashSet<>();
+
+    @ElementCollection
+    @Column(name="location")
+    private List<String> locations = new ArrayList<>();
 
     public GamePlayer() { }
 
@@ -50,8 +55,17 @@ public class GamePlayer {
         this.date = date;
     }
 
+    public Set<Ship> getShip() {
+        return ship;
+    }
+
+    public void setShip(Set<Ship> ship) {
+        this.ship = ship;
+    }
+
     public long getId() {
         return id;
+
     }
 
     public GamePlayer(Game game, Player player, Date date) {
