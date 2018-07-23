@@ -20,14 +20,14 @@ public class GamePlayer {
     @JoinColumn(name="game_id")
     private Game game;
 
+    public GamePlayer() { }
+
     @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
     Set<Ship> ship = new HashSet<>();
 
     @ElementCollection
     @Column(name="location")
     private List<String> locations = new ArrayList<>();
-
-    public GamePlayer() { }
 
     public Player getPlayer() {
         return player;

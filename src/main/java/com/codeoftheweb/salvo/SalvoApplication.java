@@ -104,19 +104,72 @@ public class SalvoApplication {
             gamePlayerRepository.save(gamePlayer14);
 
 
-            List<String>location1 = Arrays.asList("H1","H2","H3");
+            List<String>location1 = Arrays.asList("H2","H3","H4");
+            List<String>location2 = Arrays.asList("E1","F1","G1");
+            List<String>location3 = Arrays.asList("B4","B5");
+            List<String>location4 = Arrays.asList("B5","C5","D5");
+            List<String>location5 = Arrays.asList("F1","F2");
+            List<String>location6 = Arrays.asList("C6","C7");
+            List<String>location7 = Arrays.asList("A2","A3","A4");
+            List<String>location8 = Arrays.asList("G6","H6");
+            List<String>location9 = Arrays.asList("B5","C5","D5");
 
-            Ship ship1=new Ship("Carrier", gamePlayer1, location1);
-            Ship ship2=new Ship("Battleship");
-            Ship ship3=new Ship("Submarine");
-            Ship ship4=new Ship("Destroyer");
-            Ship ship5=new Ship("Patrol Boat");
+            Ship ship1=new Ship("Submarine", gamePlayer1, location2);
+            Ship ship2=new Ship("Patrol Boat",gamePlayer1,location3);
+            Ship ship3=new Ship("Destroyer",gamePlayer2,location4);
+            Ship ship4=new Ship("Patrol Boat",gamePlayer2,location5);
+            Ship ship5=new Ship("Destroyer",gamePlayer3,location4);
+            Ship ship6=new Ship("Patrol Boat",gamePlayer3,location6);
+            Ship ship7=new Ship("Submarine",gamePlayer4,location7);
+            Ship ship8=new Ship("Patrol Boat",gamePlayer4,location8);
+
+            Ship ship9=new Ship("Destroyer",gamePlayer5,location9);
+            Ship ship10=new Ship("Patrol Boat",gamePlayer5,location6);
+            Ship ship11=new Ship("Destroyer",gamePlayer6,location7);
+            Ship ship12=new Ship("Patrol Boat",gamePlayer6,location8);
+            Ship ship13=new Ship("Submarine",gamePlayer7,location4);
+            Ship ship14=new Ship("Patrol Boat",gamePlayer7,location6);
+            Ship ship15=new Ship("Destroyer",gamePlayer8,location7);
+            Ship ship16=new Ship("Patrol Boat",gamePlayer8,location8);
+
+            Ship ship17=new Ship("Submarine",gamePlayer9,location9);
+            Ship ship18=new Ship("Patrol Boat",gamePlayer9,location6);
+            Ship ship19=new Ship("Submarine",gamePlayer10,location7);
+            Ship ship20=new Ship("Patrol Boat",gamePlayer10,location8);
+            Ship ship21=new Ship("Destroyer",gamePlayer11,location4);
+            Ship ship22=new Ship("Patrol Boat",gamePlayer11,location6);
+
+            Ship ship23=new Ship("Destroyer",gamePlayer12,location4);
+            Ship ship24=new Ship("Patrol Boat",gamePlayer12,location6);
+            Ship ship25=new Ship("Submarine",gamePlayer13,location7);
+            Ship ship26=new Ship("Patrol Boat",gamePlayer14,location8);
 
             shipRepository.save(ship1);
             shipRepository.save(ship2);
             shipRepository.save(ship3);
             shipRepository.save(ship4);
             shipRepository.save(ship5);
+            shipRepository.save(ship6);
+            shipRepository.save(ship7);
+            shipRepository.save(ship8);
+            shipRepository.save(ship9);
+            shipRepository.save(ship10);
+            shipRepository.save(ship11);
+            shipRepository.save(ship12);
+            shipRepository.save(ship13);
+            shipRepository.save(ship14);
+            shipRepository.save(ship15);
+            shipRepository.save(ship16);
+            shipRepository.save(ship17);
+            shipRepository.save(ship18);
+            shipRepository.save(ship19);
+            shipRepository.save(ship20);
+            shipRepository.save(ship21);
+            shipRepository.save(ship22);
+            shipRepository.save(ship23);
+            shipRepository.save(ship24);
+            shipRepository.save(ship25);
+            shipRepository.save(ship26);
 
 
         };

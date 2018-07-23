@@ -29,13 +29,15 @@ public class Player {
         return userName;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public long getId() {
         return id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+
     public void addGamePlayer(GamePlayer gamePlayer) {
         gamePlayer.setPlayer(this);
         gamePlayers.add(gamePlayer);
@@ -44,5 +46,4 @@ public class Player {
     public List<Game> getGames() {
             return gamePlayers.stream().map(gp -> gp.getGame()).collect(toList());
     }
-
 }
