@@ -20,7 +20,8 @@ public class SalvoApplication {
     public CommandLineRunner initData(PlayerRepository playerRepository,
                                       GameRepository gameRepository,
                                       GamePlayerRepository gamePlayerRepository,
-                                      ShipRepository shipRepository) {
+                                      ShipRepository shipRepository,
+                                      SalvoRepository salvoRepository) {
         return (args) -> {
 
 
@@ -170,6 +171,77 @@ public class SalvoApplication {
             shipRepository.save(ship24);
             shipRepository.save(ship25);
             shipRepository.save(ship26);
+
+            List<String>SalvoLocation1 = Arrays.asList("B5","C5","F1");
+            List<String>SalvoLocation2 = Arrays.asList("F2","D5");
+            List<String>SalvoLocation3 = Arrays.asList("A2","A4","G6");
+            List<String>SalvoLocation4 = Arrays.asList("A3","H6");
+            List<String>SalvoLocation5 = Arrays.asList("G6","H6","A4");
+            List<String>SalvoLocation6 = Arrays.asList("A2","A3","D8");
+            List<String>SalvoLocation7 = Arrays.asList("A3","A4","F7");
+            List<String>SalvoLocation8 = Arrays.asList("A2","G6","H6");
+            List<String>SalvoLocation9 = Arrays.asList("A1","A2","A3");
+            List<String>SalvoLocation10 = Arrays.asList("G6","G7","G8");
+            List<String>SalvoLocation11 = Arrays.asList("B4","B5","B6");
+            List<String>SalvoLocation12 = Arrays.asList("E1","H3","A2");
+            List<String>SalvoLocation13 = Arrays.asList("B5","D5","C7");
+            List<String>SalvoLocation14 = Arrays.asList("C5","C6");
+            List<String>SalvoLocation15 = Arrays.asList("H1","H2","H3");
+            List<String>SalvoLocation16 = Arrays.asList("E1","F2","G3");
+            List<String>SalvoLocation17 = Arrays.asList("B5","C6","H1");
+            List<String>SalvoLocation18 = Arrays.asList("C5","C7","D5");
+            List<String>SalvoLocation19 = Arrays.asList("B5","B6","C7");
+            List<String>SalvoLocation20 = Arrays.asList("C6","D6","E6");
+            List<String>SalvoLocation21 = Arrays.asList("H1","H8");
+
+            Salvo salvo1=new Salvo(1,gamePlayer1,SalvoLocation1);
+            Salvo salvo2=new Salvo(1,gamePlayer2,SalvoLocation11);
+            Salvo salvo3=new Salvo(2,gamePlayer1,SalvoLocation2);
+            Salvo salvo4=new Salvo(2,gamePlayer2,SalvoLocation12);
+            Salvo salvo5=new Salvo(1,gamePlayer3,SalvoLocation3);
+            Salvo salvo6=new Salvo(1,gamePlayer4,SalvoLocation13);
+            Salvo salvo7=new Salvo(2,gamePlayer3,SalvoLocation4);
+            Salvo salvo8=new Salvo(2,gamePlayer4,SalvoLocation14);
+            Salvo salvo9=new Salvo(1,gamePlayer5,SalvoLocation5);
+            Salvo salvo10=new Salvo(2,gamePlayer6,SalvoLocation15);
+            Salvo salvo11=new Salvo(1,gamePlayer5,SalvoLocation6);
+            Salvo salvo12=new Salvo(2,gamePlayer6,SalvoLocation16);
+            Salvo salvo13=new Salvo(1,gamePlayer7,SalvoLocation7);
+            Salvo salvo14=new Salvo(2,gamePlayer8,SalvoLocation17);
+            Salvo salvo15=new Salvo(1,gamePlayer7,SalvoLocation8);
+            Salvo salvo16=new Salvo(2,gamePlayer8,SalvoLocation18);
+            Salvo salvo17=new Salvo(1,gamePlayer9,SalvoLocation9);
+            Salvo salvo18=new Salvo(2,gamePlayer10,SalvoLocation19);
+            Salvo salvo19=new Salvo(1,gamePlayer9,SalvoLocation10);
+            Salvo salvo20=new Salvo(2,gamePlayer10,SalvoLocation20);
+            Salvo salvo21=new Salvo(3,gamePlayer10,SalvoLocation21);
+
+
+            salvoRepository.save(salvo1);
+            salvoRepository.save(salvo2);
+            salvoRepository.save(salvo3);
+            salvoRepository.save(salvo4);
+            salvoRepository.save(salvo5);
+            salvoRepository.save(salvo6);
+            salvoRepository.save(salvo7);
+            salvoRepository.save(salvo8);
+            salvoRepository.save(salvo9);
+            salvoRepository.save(salvo10);
+            salvoRepository.save(salvo11);
+            salvoRepository.save(salvo12);
+            salvoRepository.save(salvo13);
+            salvoRepository.save(salvo14);
+            salvoRepository.save(salvo15);
+            salvoRepository.save(salvo16);
+            salvoRepository.save(salvo17);
+            salvoRepository.save(salvo18);
+            salvoRepository.save(salvo19);
+            salvoRepository.save(salvo20);
+            salvoRepository.save(salvo21);
+
+
+
+
 
 
         };

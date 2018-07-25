@@ -25,6 +25,18 @@ public class GamePlayer {
     @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
     Set<Ship> ship = new HashSet<>();
 
+    @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
+    Set<Salvo> salvo = new HashSet<>();
+
+
+    public Set<Salvo> getSalvo() {
+        return salvo;
+    }
+
+    public void setSalvo(Set<Salvo> salvo) {
+        this.salvo = salvo;
+    }
+
     @ElementCollection
     @Column(name="location")
     private List<String> locations = new ArrayList<>();
@@ -67,14 +79,11 @@ public class GamePlayer {
         return id;
 
     }
-
     public GamePlayer(Game game, Player player, Date date) {
         this.game = game;
         this.player = player;
         this.date = date;
 
     }
-
-
 
 }

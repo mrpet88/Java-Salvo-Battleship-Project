@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -67,45 +64,39 @@ public class SalvoController {
         Map<String, Object> gameViewMap = new HashMap<>();
         gameViewMap.put("game", makeGamesDTO(gamePlayer.getGame()));
         gameViewMap.put("ships",gamePlayer.getShip().stream().map(ship -> fillTheShipTypeDTO(ship)).collect(toList()));
-
+        gameViewMap.put("salvos",gamePlayer.getGame().getGamePlayers().stream()
+        .map(gp -> salvoList(gp))
+        .collect(toList()));
         return gameViewMap;
     }
-
-//    private Map<String, Object> makeGameViewDTO(GamePlayer gamePlayer) {
-//        Map<String, Object> dto = new LinkedHashMap<String, Object>();
-//        dto.put("ships", gamePlayer.getShip());
-//        return dto;
-//    }
 
     private Map<String, Object> fillTheShipTypeDTO(Ship ship) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("type", ship.getShipType());
         dto.put("location", ship.getLocations());
         return dto;
-    }//    private Map<String, Object> makeGamesViewDTO(GamePlayer gamePlayer) {
-//        Map<String, Object> dto = new LinkedHashMap<String, Object>();
-//            dto.put("id", gamePlayer.getId());
-//            dto.put("created", gamePlayer.getGame().getStartDate());
-//            dto.put("gamePlayers", gamePlayer.getGame().getGamePlayers()
-//                    .stream()
-//                    .map(singlePlayer -> makeGamePlayersViewDTO(singlePlayer))
-//                    .collect(Collectors.toList()));
-//            return dto;
-//    }
-//    private Map<String, Object> makeGamePlayersViewDTO(GamePlayer gamePlayer) {
-//        Map<String, Object> dto = new LinkedHashMap<String, Object>();
-//        dto.put("id", gamePlayer.getId());
-//        dto.put("player", makePlayersViewDTO(gamePlayer.getPlayer()));
-//
-//        return dto;
-//    }
-//    private Map<String, Object>makePlayersViewDTO(Player player) {
-//        Map<String, Object> dto = new LinkedHashMap<String, Object>();
-//        dto.put("id", player.getId());
-//        dto.put("userName", player.getUserName());
-//
-//        return dto;
-//    }
+    }
+
+    private List<Object> salvoList (GamePlayer gamePlayer) {
+        List<Object> salvoList = new ArrayList<>();
+        Set<Salvo> salvosSet = gamePlayer.getSalvo();
+        for (Salvo salvo : salvosSet) {
+            salvoList.add(fillTheSalvoTypeDTO(salvo));
+        }
+        return salvoList;
+    }
+
+
+
+    private Map<String, Object> fillTheSalvoTypeDTO(Salvo salvo) {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("turn", salvo.getTurn());
+        dto.put("player", salvo.getGamePlayer().getPlayer().getId());
+        dto.put("location", salvo.getLocations());
+        return dto;
+    }
+
+
     }
 
 

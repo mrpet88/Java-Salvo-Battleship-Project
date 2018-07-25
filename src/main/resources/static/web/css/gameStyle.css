@@ -1,0 +1,28 @@
+.flex{
+    display:flex;
+    justify-content: space-around;
+    }
+.flex-table-header{
+    display: flex;
+    flex-direction: column;
+}
+.ship-location{
+    background: red;
+}
+.player-one{
+    color: green;
+}
+.player-two{
+    color: red;
+}
+.first-player{
+    width: 40%;    
+}
+.second-player{
+    width: 40%;
+}
+
+
+
+
+

@@ -2,29 +2,69 @@ var main = new Vue({
     el: '#VueMain',
     data: {
         game_view: [],
-        listObjects:[],
         rowNumbers:[1,2,3,4,5,6,7,8,9,10],
-        colLetters:["A","B","C","D","E","F","G","H","I","J",]
+        colLetters:["A","B","C","D","E","F","G","H","I","J",],
+        id:'',
+        playerOne:[],
+        playerTwo:[],
+        players:[],
+        
     },
     methods: {
         makeObject: function () {
-            var listObject = [];
-            for (var i = 0; i < this.game_view.ships["0"].location.length; i++) {
-                console.log(this.game_view.ships["0"].location[i])
+            for (var i = 0; i < this.game_view.ships.length; i++){
+            for (var j=0; j<this.game_view.ships[i].location.length; j++)
+            {
+                var shipLocation = this.game_view.ships[i].location[j];
+                console.log(shipLocation);
+                document.getElementById(shipLocation).classList.add("ship-location");   
             }
-            this.listObjects=listObject;
-            console.log(this.listObjects);
+            }
+        },
+//        .salvos["0"]["0"].location
+        makeSalvoObject: function () {
+            for (var i = 0; i < this.game_view.salvos[i].length; i++){
+                console.log(this.game_view.salvos[i].length);
+            for (var j=0; j<this.game_view.salvos[i][i].location.length; j++)
+                console.log(this.game_view.salvos[i][i].location.length);
+
+            {
+                var salvoLocation = this.game_view.salvos[i][i].location[j];
+                console.log(salvoLocation);
+                document.getElementById(shipLocation).classList.add("ship-location");   
+            }
+            }
+        },
+        findTheId: function(){
+            var url = location.search;
+            var x = url.split('=')[1];
+            this.id=x;
+            start(this.id);
+
+        },
+        getTheName: function(){
+            var players=[];
+            for(var i=0; i<this.game_view.game.gamePlayers.length; i++){
+                if (this.id==this.game_view.game.gamePlayers[i].id ){
+                var playerOne = (this.game_view.game.gamePlayers[i].player.userName);
+                    }
+                else{
+                var playerTwo = (this.game_view.game.gamePlayers[i].player.userName);
+
+                }
+            }
+            this.playerOne=playerOne+" "+"(you)";
+            this.playerTwo=playerTwo;
         }
-    }
+    },
 });
 
-start();
-
-function start() {
+main.findTheId();
+function start(id) {
+    
     console.log(1);
-
     var fetchConfig =
-        fetch("/api/game_view/1", {
+        fetch("/api/game_view/" +id, {
             method: "GET",
             credentials: "include",
         })
@@ -56,17 +96,14 @@ function onConversionToJsonSuccessful(json) {
     data = json;
     main.game_view = data;
     main.makeObject()
-       getHeadersHtml();
-    renderHeaders();
+    main.getTheName()
+    main.makeSalvoObject()
+ 
 }
 
 function onConversionToJsonFailed() {
     console.log("Not a json mate!");
 }
 
-//function getHeadersHtml(data) {
-//  return "<tr><th></th>" + data.destination_addresses.map(function(dest) {
-//    return "<th>" + dest + "</th>";
-//  }).join("") + "</tr>";
-//}
-//.ships["0"].location
+
+      
