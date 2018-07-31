@@ -1,8 +1,6 @@
 package com.codeoftheweb.salvo;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,6 @@ public class Salvo {
     private long id;
     private int turn;
 
-    @JsonIgnore
     public GamePlayer getGamePlayer() {
         return gamePlayer;
     }

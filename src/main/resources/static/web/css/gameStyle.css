@@ -1,28 +1,54 @@
-.flex{
-    display:flex;
-    justify-content: space-around;
-    }
-.flex-table-header{
+body {
+    height: 100vp;
+    background-image: url(caribbean-wallpaper-16.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.flex-column {
     display: flex;
     flex-direction: column;
-}
-.ship-location{
-    background: red;
-}
-.player-one{
-    color: green;
-}
-.player-two{
-    color: red;
-}
-.first-player{
-    width: 40%;    
-}
-.second-player{
-    width: 40%;
+    text-align: center;
 }
 
+.headers {
+    border: solid 1px black;
+    background: rgba(255, 255, 255, 0.4);
 
+}
 
+.ship-location {
+    background: blue;
+}
 
+.salvo-location {
+    background: green;
+}
 
+.hit {
+    background-image: url(fireball.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+table,
+th,
+td {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid black;
+}
+
+tr {
+    height: 6vh;
+}
+
+th {
+    width: 6vh;
+    text-align: center;
+}

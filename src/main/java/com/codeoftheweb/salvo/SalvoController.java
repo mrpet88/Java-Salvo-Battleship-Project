@@ -61,12 +61,12 @@ public class SalvoController {
     @RequestMapping(value = "/game_view/{id}", method = RequestMethod.GET)
     public Map<String, Object> gameView(@PathVariable Long id) {
         GamePlayer gamePlayer = gamePlayerRepository.findOne(id);
+        GamePlayer enemy = getEnemyGamePlayer(gamePlayer);
         Map<String, Object> gameViewMap = new HashMap<>();
         gameViewMap.put("game", makeGamesDTO(gamePlayer.getGame()));
         gameViewMap.put("ships",gamePlayer.getShip().stream().map(ship -> fillTheShipTypeDTO(ship)).collect(toList()));
-        gameViewMap.put("salvos",gamePlayer.getGame().getGamePlayers().stream()
-        .map(gp -> salvoList(gp))
-        .collect(toList()));
+        gameViewMap.put("EnemySalvos", salvoList(enemy));
+        gameViewMap.put("UserSalvos", salvoList(gamePlayer));
         return gameViewMap;
     }
 
@@ -91,9 +91,22 @@ public class SalvoController {
     private Map<String, Object> fillTheSalvoTypeDTO(Salvo salvo) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("turn", salvo.getTurn());
-        dto.put("player", salvo.getGamePlayer().getPlayer().getId());
+        dto.put("player id", salvo.getGamePlayer().getPlayer().getId());
         dto.put("location", salvo.getLocations());
         return dto;
+    }
+
+    private GamePlayer getEnemyGamePlayer (GamePlayer gamePlayer) {
+
+        List<GamePlayer> gamePlayerList = new ArrayList<>();
+        Set<GamePlayer> gamePlayerSet = gamePlayer.getGame().getGamePlayers();
+        for (GamePlayer gp : gamePlayerSet) {
+            if (gp.id != gamePlayer.getId()) {
+             gamePlayerList.add(gp);
+            }
+        }
+        GamePlayer oponent = gamePlayerList.get(0);
+        return oponent;
     }
 
 

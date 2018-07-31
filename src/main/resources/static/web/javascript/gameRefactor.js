@@ -28,6 +28,7 @@ var main = new Vue({
 
         salvoUserPosition: function () {
             var userHits = [];
+            var arrayTwo = [];
             for (var i = 0; i < this.game_view.UserSalvos.length; i++) {
                 {
                     let turn = this.game_view.UserSalvos[i].turn;
@@ -67,7 +68,7 @@ var main = new Vue({
                     }
                 }
             }
-            this.enemyHits=arrayThird;
+            return arrayThird;
 
         },
         findTheId: function () {
@@ -133,7 +134,7 @@ function onConversionToJsonSuccessful(json) {
     main.getTheName()
     main.salvoUserPosition()
     main.salvoEnemyPosition()
-    main.shipIsHit(main.shipUserLocations, main.salvoEnemyLocations, "U");
+    main.enemyHits = main.shipIsHit(main.shipUserLocations, main.salvoEnemyLocations, "U");
 
 }
 
