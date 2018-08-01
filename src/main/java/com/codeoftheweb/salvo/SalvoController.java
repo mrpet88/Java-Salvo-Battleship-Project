@@ -20,6 +20,9 @@ public class SalvoController {
     @Autowired
     private GamePlayerRepository gamePlayerRepository;
 
+    @Autowired
+    private PlayerRepository playerRepository;
+
     @RequestMapping("/games")
     public List<Object> getGamesIds() {
         return gameRepository
@@ -28,8 +31,40 @@ public class SalvoController {
                 .map(game -> makeGamesDTO(game))
                 .collect(toList());
 
-//            return repo.findAll().stream().map(b->b.getId()).collect(toList());
     }
+
+
+    @RequestMapping("/leaderboard")
+    private List<Object> getAllPlayers(){
+        return playerRepository.findAll().stream().map(player -> makeLeaderboardDTO(player)).collect(toList());
+    }
+    private Map<String, Object> makeLeaderboardDTO(Player player){
+        Map<String, Object> dto = new LinkedHashMap<>();
+        Double totalScore = 0.0;
+        Integer wins = 0;
+        Integer losses = 0;
+        Integer ties = 0;
+        for(Score score : player.getScores()){
+            if(score.getScore() == 1.0){
+                wins += 1;
+                totalScore += 1;
+            }
+            if(score.getScore() == 0.5){
+                ties +=1; }
+            totalScore += 0.5;
+            if(score.getScore() == 0.0){
+                losses +=1;
+            }
+
+        }
+        dto.put("name", (player.getUserName()));
+        dto.put("totalScore", totalScore);
+        dto.put("numberOfWins", wins);
+        dto.put("numberOfLosses", losses);
+        dto.put("numberOfTies", ties);
+        return dto;
+    }
+
 
     private Map<String, Object> makeGamesDTO(Game game) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
@@ -46,7 +81,9 @@ public class SalvoController {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("id", gamePlayer.getId());
         dto.put("player", makePlayersDTO(gamePlayer.getPlayer()));
-
+        if (gamePlayer.getScore() != null) {
+            dto.put("score", gamePlayer.getScore().getScore());
+        }
         return dto;
     }
 
@@ -108,6 +145,7 @@ public class SalvoController {
         GamePlayer oponent = gamePlayerList.get(0);
         return oponent;
     }
+
 
 
     }

@@ -49,6 +49,9 @@ public class GamePlayer {
         this.player = player;
     }
 
+    public Score getScore() {
+        return player.getScores().stream().filter(s -> s.getGame() == game).findFirst().orElse(null);
+    }
 
 
     public Game getGame() {
@@ -85,5 +88,6 @@ public class GamePlayer {
         this.date = date;
 
     }
+
 
 }
