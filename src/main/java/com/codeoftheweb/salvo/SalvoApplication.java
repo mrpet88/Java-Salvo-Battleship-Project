@@ -258,8 +258,8 @@ public class SalvoApplication {
             Score scores1= new Score(1.0, game1,player1, finishedDate1);
             Score scores2= new Score(0.0, game1,player2, finishedDate1);
 
-            Score scores3= new Score(0.0, game2,player1, finishedDate2);
-            Score scores4= new Score(0.0, game2,player2, finishedDate2);
+            Score scores3= new Score(0.5, game2,player1, finishedDate2);
+            Score scores4= new Score(0.5, game2,player2, finishedDate2);
 
             Score scores5= new Score(0.0, game3,player2, finishedDate3);
             Score scores6= new Score(1.0, game3,player4, finishedDate3);

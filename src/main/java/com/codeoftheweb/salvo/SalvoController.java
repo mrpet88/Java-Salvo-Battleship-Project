@@ -44,14 +44,18 @@ public class SalvoController {
         Integer wins = 0;
         Integer losses = 0;
         Integer ties = 0;
-        for(Score score : player.getScores()){
+        Set<Score> scoreSet = player.getScores();
+        for(Score score : scoreSet){
+            Double meme = score.getScore();
+            System.out.println(meme);
             if(score.getScore() == 1.0){
                 wins += 1;
-                totalScore += 1;
+                totalScore += 1.0;
             }
-            if(score.getScore() == 0.5){
-                ties +=1; }
-            totalScore += 0.5;
+            if(score.getScore() == 0.5) {
+                ties += 1;
+                totalScore += 0.5;
+            }
             if(score.getScore() == 0.0){
                 losses +=1;
             }
