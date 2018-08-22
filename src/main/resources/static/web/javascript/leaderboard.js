@@ -1,14 +1,36 @@
 var main = new Vue({
     el: '#VueMain',
     data: {
+        
         leaderboard: [],
+        ascendanceArray:[],
+        names:[
+            {"name":"marinos"},
+            {"name":"chris"},
+            {"name":"angel"},
+            {"name":"michael"},
+            {"name":"anna"}
+        ]
+        
     },
     methods: {
-      
+        
+    descendance: function() {
+    for (var i=0; i<this.names.length; i++){
+         this.names.sort(function(a,b){return a - b});
+         return this.names;
+    }
+   
+    console.log(this.names);
     },
+ 
+    },
+    
 });
 
 start();
+
+
 
 function start() {
 
@@ -44,7 +66,10 @@ function onDataFetchFailed(error) {
 function onConversionToJsonSuccessful(json) {
     console.log("success!!!!", json);
     data = json;
-    main.leaderboard = data;
+    main.leaderboard = data.sort((a,b) => b.totalScore - a.totalScore);
+    console.log(data)
+
+
     
 
 }

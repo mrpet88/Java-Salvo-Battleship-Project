@@ -14,6 +14,7 @@ public class Player {
     @GeneratedValue(strategy=GenerationType.AUTO)
     public long id;
     private String userName;
+    private String password;
 
     public Player() { }
 
@@ -31,8 +32,9 @@ public class Player {
         this.scores = scores;
     }
 
-    public Player(String userName) {
+    public Player(String userName, String password) {
         this.userName = userName;
+        this.password=password;
     }
 
 
@@ -58,7 +60,17 @@ public class Player {
             return gamePlayers.stream().map(gp -> gp.getGame()).collect(toList());
     }
 
+
+
     public  Score getScore (Game game){
         return scores.stream().filter(s -> s.getGame() == game).findFirst().orElse(null);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

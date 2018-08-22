@@ -1,30 +1,17 @@
 var main = new Vue({
     el: '#VueMain',
     data: {
-        games: [],
-        listObjects:[],
+//        games: [],
+//        listObjects:[],
+        leaderboard: [],
+        currentSort:'totalScore',
+        currentSortDir:'asc'
     },
     methods: {
-        makeObject: function () {
-            var listObject = [];
-            for (var i = 0; i < this.games.length; i++) {
-                var date = new Date(this.games[i].created).toLocaleString()
-                var playerOne = this.games[i].gamePlayers["0"].player.userName;
-                if (this.games[i].gamePlayers.length > 1) {
-                    var playerTwo = this.games[i].gamePlayers["1"].player.userName;
-                }
-                else {
-                    var playerTwo = 'JOIN';
-                }
-                listObject[i] = {
-                    'date': date,
-                    'playerOne': playerOne,
-                    'playerTwo': playerTwo,
-                }
-            }
-            this.listObjects=listObject;
-            console.log(this.listObjects);
+        sort:function(){
+            console.log(this.leaderboard)
         }
+
     }
 });
 
@@ -34,7 +21,7 @@ function start() {
     console.log(1);
 
     var fetchConfig =
-        fetch("/api/games", {
+        fetch("/api/leaderboard", {
             method: "GET",
             credentials: "include",
         })
@@ -64,8 +51,12 @@ function onDataFetchFailed(error) {
 function onConversionToJsonSuccessful(json) {
     console.log("success!!!!", json);
     data = json;
-    main.games = data;
-    main.makeObject()
+//    main.games = data;
+//    main.makeObject()
+    main.leaderboard = data;
+    main.sort(main.currentSortDir);
+    main.sortedScore();
+
 }
 
 function onConversionToJsonFailed() {

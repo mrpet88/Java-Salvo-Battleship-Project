@@ -5,23 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Games </title>
-    <!--    <link rel="stylesheet" href="css/">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/leaderboard.css">
+    <title> LeaderBoard </title>
 </head>
 
 <body>
     <div id="VueMain">
-       <h1>Salvo Battleship Game</h1>
+        <table class="leaderboard table">
+                    <tr>
+                       <th>Username</th>
+                       <th @click="sort('totalScore')">Total</th>
+                       <th>Win</th>
+                       <th>Ties</th>
+                       <th>Losts</th>
+                    </tr>
+                    <tbody>
+                        <tr v-for="data in leaderboard">
+                            <td>{{data.name}}</td>
+                            <td>{{data.totalScore}}</td>
+                            <td>{{data.numberOfWins}}</td>
+                            <td>{{data.numberOfTies}}</td>
+                            <td>{{data.numberOfLosses}}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-    <ol>
-        <li v-for="listObject in listObjects">{{listObject.date}} , {{listObject.playerOne}} , {{listObject.playerTwo}}</li>
-        
-    </ol>
-    
+<!--<button v-on:click="even(leaderboard)">ddddd</button>       -->
     </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js "></script>
-    <script src="javascript/games.js"></script>
+    <script src="javascript/leaderboard.js"></script>
 </body>
 
 </html>
