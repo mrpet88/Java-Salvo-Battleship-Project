@@ -363,7 +363,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .antMatchers("/api/games").permitAll()
-                .antMatchers("/api/players").permitAll()
+//                .antMatchers("/api/players").permitAll()
 //                .antMatchers("/rest/**").denyAll()
 //                .antMatchers("/api/login").authenticated()
                 .and()

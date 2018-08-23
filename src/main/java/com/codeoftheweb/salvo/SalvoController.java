@@ -11,8 +11,10 @@ import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
-@RequestMapping("/api")
+
+
 @RestController
+@RequestMapping("/api")
 public class SalvoController {
 
     @Autowired
@@ -46,7 +48,6 @@ public class SalvoController {
                 .collect(toList());
 
     }
-
 
     @RequestMapping("/leaderboard")
     private List<Object> getAllPlayers(){
@@ -157,25 +158,29 @@ public class SalvoController {
         Set<GamePlayer> gamePlayerSet = gamePlayer.getGame().getGamePlayers();
         for (GamePlayer gp : gamePlayerSet) {
             if (gp.id != gamePlayer.getId()) {
-             gamePlayerList.add(gp);
+                gamePlayerList.add(gp);
             }
         }
         GamePlayer oponent = gamePlayerList.get(0);
         return oponent;
     }
+
     @RequestMapping(path = "/players", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> createUser(@RequestParam String userName, @RequestParam String password) {
+    public ResponseEntity<Map<String, Object>> createUser(@RequestParam String userName, String password) {
         if (userName.isEmpty()) {
             return new ResponseEntity<>(makeMap("error", "No name"), HttpStatus.FORBIDDEN);
+        } else {
+            List<Player> player = playerRepository.findByUserName(userName);
+            if (!player.isEmpty()) {
+                return new ResponseEntity<>(makeMap("error", "Username already exists"), HttpStatus.CONFLICT);
+            } else {
+                Player newPlayer = new Player(userName, password);
+                playerRepository.save(newPlayer);
+                return new ResponseEntity<>(makeMap("id", newPlayer.getId()), HttpStatus.CREATED);
+            }
         }
-        Player player = playerRepository.findByUserName(userName);
-        if (player != null) {
-            return new ResponseEntity<>(makeMap("error", "Name in use"),
-                    HttpStatus.FORBIDDEN);
-        }
-        Player newPlayer = playerRepository.save(new Player(userName, password));
-        return new ResponseEntity<>(makeMap("name", newPlayer.getUserName()), HttpStatus.CREATED);
     }
+
     private Map<String, Object> makeMap(String key, Object value) {
         Map<String, Object> map = new HashMap<>();
         map.put(key, value);
@@ -183,13 +188,7 @@ public class SalvoController {
     }
 
 
-
-
-
-
-
-    }
-
+}
 
 
 

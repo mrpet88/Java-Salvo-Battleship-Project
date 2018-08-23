@@ -1,3 +1,5 @@
+
+
 var main = new Vue({
     el: '#VueMain',
     data: {
@@ -8,8 +10,16 @@ var main = new Vue({
         currentSortDir:'asc'
     },
     methods: {
-        sort:function(){
-            console.log(this.leaderboard)
+        logIn:function(){
+            fetch("/api/login", {
+                   credentials: 'include',
+                   method: 'POST',
+                   headers: {
+                       'Accept': 'application/json',
+                       'Content-Type': 'application/x-www-form-urlencoded'
+                   },
+                   body: 'userName=' + username + '&password=' + password,
+               })
         }
 
     }
@@ -37,6 +47,8 @@ function start() {
     console.log(3);
 }
 
+
+
 function onDataFetched(response) {
     response.json()
         .then(onConversionToJsonSuccessful)
@@ -53,9 +65,12 @@ function onConversionToJsonSuccessful(json) {
     data = json;
 //    main.games = data;
 //    main.makeObject()
-    main.leaderboard = data;
-    main.sort(main.currentSortDir);
-    main.sortedScore();
+    main.leaderboard = data.sort((a,b) => b.totalScore - a.totalScore);
+//    main.logIn()
+     
+  
+    
+
 
 }
 
