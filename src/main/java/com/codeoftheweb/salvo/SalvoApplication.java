@@ -329,10 +329,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
                             .logout()
                             .permitAll();
                 }
-
             }
-
-
         };
     }
 }
@@ -365,8 +362,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/**").permitAll()
+                .antMatchers("/api/games").permitAll()
+                .antMatchers("/api/players").permitAll()
 //                .antMatchers("/rest/**").denyAll()
-//                .antMatchers("/api/login").fullyAuthenticated()
+//                .antMatchers("/api/login").authenticated()
                 .and()
                 .formLogin();
 

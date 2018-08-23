@@ -1,10 +1,11 @@
 package com.codeoftheweb.salvo;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -23,7 +24,20 @@ public class SalvoController {
     @Autowired
     private PlayerRepository playerRepository;
 
-    @RequestMapping("/games")
+    @RequestMapping(value = "/games",method = RequestMethod.GET)
+    public Map<String,Object> getGamesInfo(Authentication authentication) {
+        Map<String,Object> map = new HashMap<>();
+        if (authentication != null) {
+            Player player = playerRepository.findByUserName(authentication.getName()).get(0);
+            map.put("player", makePlayersDTO(player));
+            map.put("games", getGamesIds());
+        } else {
+            map.put("games", getGamesIds());
+        }
+        return map;
+    }
+
+
     public List<Object> getGamesIds() {
         return gameRepository
                 .findAll()
@@ -149,6 +163,28 @@ public class SalvoController {
         GamePlayer oponent = gamePlayerList.get(0);
         return oponent;
     }
+    @RequestMapping(path = "/players", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> createUser(@RequestParam String userName, @RequestParam String password) {
+        if (userName.isEmpty()) {
+            return new ResponseEntity<>(makeMap("error", "No name"), HttpStatus.FORBIDDEN);
+        }
+        Player player = playerRepository.findByUserName(userName);
+        if (player != null) {
+            return new ResponseEntity<>(makeMap("error", "Name in use"),
+                    HttpStatus.FORBIDDEN);
+        }
+        Player newPlayer = playerRepository.save(new Player(userName, password));
+        return new ResponseEntity<>(makeMap("name", newPlayer.getUserName()), HttpStatus.CREATED);
+    }
+    private Map<String, Object> makeMap(String key, Object value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+        return map;
+    }
+
+
+
+
 
 
 
