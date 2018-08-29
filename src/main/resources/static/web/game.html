@@ -13,6 +13,7 @@
 
 <body>
     <div id="VueMain">
+        <button v-if="logOutButton" v-on:click="logOut()" type="button">LogOut</button>
         <div class="flex">
             <div class="flex-column">
                 <div class="headers">

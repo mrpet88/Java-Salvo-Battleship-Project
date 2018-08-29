@@ -11,9 +11,41 @@ var main = new Vue({
         salvoEnemyLocations: [],
         userHits: [],
         enemyHits: [],
+        logOutButton: true,
+        player: [],
+
 
     },
     methods: {
+        getGames: function () {
+            fetch("/api/games", {
+                    method: "GET",
+                    credentials: "include",
+                })
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response.player);
+                    console.log(response.player != null)
+                    if (response.player != null) {
+
+                        main.logOutButton = true;
+                    }
+                })
+                .catch(response => console.log(response));
+        },
+
+        logOut: function () {
+            fetch("/api/logout", {
+                credentials: 'include',
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            })
+            location.reload();
+
+        },
         userShipPosition: function () {
             let array = [];
             for (var i = 0; i < this.game_view.ships.length; i++) {
@@ -25,35 +57,36 @@ var main = new Vue({
             }
             this.shipUserLocations = array;
         },
-
         salvoUserPosition: function () {
             var userHits = [];
             for (var i = 0; i < this.game_view.UserSalvos.length; i++) {
                 {
                     let turn = this.game_view.UserSalvos[i].turn;
-                     
-                        for (var k = 0; k < this.game_view.UserSalvos[i].location.length; k++) {
-                            var salvoLocation = this.game_view.UserSalvos[i].location[k];
-                            userHits.push(salvoLocation);
-                            document.getElementById("E" + salvoLocation).classList.add("salvo-location");
-                            document.getElementById("E" + salvoLocation).innerHTML = turn
-                        }
-                        this.userHits = userHits;
-                }}},
-        salvoEnemyPosition: function (){
-            var enemySalvos=[];
-        for (var i = 0; i < this.game_view.EnemySalvos.length; i++){
-                    let turn = this.game_view.EnemySalvos[i].turn;
-            for (var k = 0; k < this.game_view.EnemySalvos[i].location.length; k++) {
-                            var salvoLocation = this.game_view.EnemySalvos[i].location[k];
-                            enemySalvos.push(salvoLocation);
-                            document.getElementById("U" + salvoLocation).classList.add("salvo-location");
-                            document.getElementById("U" + salvoLocation).innerHTML = turn
-                        }
-            this.salvoEnemyLocations= enemySalvos;
-    
-    }
-    },
+
+                    for (var k = 0; k < this.game_view.UserSalvos[i].location.length; k++) {
+                        var salvoLocation = this.game_view.UserSalvos[i].location[k];
+                        userHits.push(salvoLocation);
+                        document.getElementById("E" + salvoLocation).classList.add("salvo-location");
+                        document.getElementById("E" + salvoLocation).innerHTML = turn
+                    }
+                    this.userHits = userHits;
+                }
+            }
+        },
+        salvoEnemyPosition: function () {
+            var enemySalvos = [];
+            for (var i = 0; i < this.game_view.EnemySalvos.length; i++) {
+                let turn = this.game_view.EnemySalvos[i].turn;
+                for (var k = 0; k < this.game_view.EnemySalvos[i].location.length; k++) {
+                    var salvoLocation = this.game_view.EnemySalvos[i].location[k];
+                    enemySalvos.push(salvoLocation);
+                    document.getElementById("U" + salvoLocation).classList.add("salvo-location");
+                    document.getElementById("U" + salvoLocation).innerHTML = turn
+                }
+                this.salvoEnemyLocations = enemySalvos;
+
+            }
+        },
         shipIsHit: function (ship, salvo, letter) {
             var arrayThird = [];
             for (var i = 0; i < salvo.length; i++) {
@@ -67,7 +100,7 @@ var main = new Vue({
                     }
                 }
             }
-            this.enemyHits=arrayThird;
+            this.enemyHits = arrayThird;
 
         },
         findTheId: function () {
@@ -75,7 +108,6 @@ var main = new Vue({
             var x = url.split('=')[1];
             this.id = x;
             start(this.id);
-
         },
         getTheName: function () {
             for (var i = 0; i < this.game_view.game.gamePlayers.length; i++) {
@@ -88,6 +120,11 @@ var main = new Vue({
             }
             this.playerOne = playerOne + " " + "(you)";
             this.playerTwo = playerTwo;
+        },
+        returnButton: function(){
+                if (this.id == this.game_view.game.gamePlayers[i].id)     
+                console.log(location.href)
+            
         }
     },
 });

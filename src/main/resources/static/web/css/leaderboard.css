@@ -1,0 +1,91 @@
+body{
+background-image: url(leaderboard_wallpaper.jpg);
+background-position: center;
+background-repeat: no-repeat; 
+/*font-family: 'Raleway', sans-serif;*/
+font-family: 'Montserrat', sans-serif; 
+}
+
+table{
+color: white;
+background: rgba(0,0,0,0.5);
+overflow: auto;
+
+}
+.headers{
+background: rgba(0,0,0,0.5);
+color: white;
+margin-left:0px;
+margin-right:0px;
+padding-left: 15px;
+padding-right: 15px;
+border-bottom: solid 1px white;
+}
+
+h3{
+margin-left: auto;
+    margin-right: auto;
+    font-size: 50px;
+}
+.player-name{
+    padding: 0px;
+    font-size: 25px;
+}
+.sign-out{
+    font-size: 20px;
+}
+.table-background{
+background: rgba(0,0,0,0.5);
+}
+.form{
+    height: 100px;
+}
+
+.form-control{
+    margin-left: 0px;
+    margin-right: 0px;
+
+}
+.placeholders{
+    margin-left:0px;
+    margin-right:0px;
+    padding-top: 10px;
+}
+.buttons-form{
+     margin-left:0px;
+    margin-right:0px;
+    margin-top: 10px;
+}
+.mail-input{
+    background: white;
+    border-radius: 4px;
+    height: 35px;
+}
+.password-input{
+        background: white;
+    border-radius: 4px;
+        height: 35px;
+
+
+}
+.login-button{
+    height: 35px;
+}
+.signup-button{
+    height: 35px;
+}
+.form{
+  background: rgba(0,0,0,0.5);
+}
+.gameTable{
+    color: white;
+}
+.loggedPlayer{
+    color: aquamarine;
+}
+.notable-message{
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    border-top: solid 1px white;
+}

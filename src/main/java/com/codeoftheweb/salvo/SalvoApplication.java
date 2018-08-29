@@ -361,11 +361,19 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll()
+//                .antMatchers("/**").permitAll()
                 .antMatchers("/api/games").permitAll()
-//                .antMatchers("/api/players").permitAll()
-//                .antMatchers("/rest/**").denyAll()
-//                .antMatchers("/api/login").authenticated()
+                .antMatchers("/api/leaderboard").permitAll()
+                .antMatchers("/api/login").permitAll()
+                .antMatchers("/api/game_view/**").permitAll()
+                .antMatchers("/api/players").permitAll()
+                .antMatchers("/web/games.html").permitAll()
+                .antMatchers("/web/javascript/games.js").permitAll()
+                .antMatchers("/web/css/games.css").permitAll()
+                .antMatchers("/web/css/leaderboard.css").permitAll()
+                .antMatchers("/web/css/leaderboard_wallpaper.jpg").permitAll()
+                .antMatchers("/rest/**").denyAll()
+                .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin();
 
