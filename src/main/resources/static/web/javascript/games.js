@@ -26,6 +26,22 @@ var main = new Vue({
                 this.notable = true;
             }
         },
+        createGame: function () {
+                 fetch("/api/games", {
+                    credentials: 'include',
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                })
+                .then(response => {
+                     response.json().then(data => window.location.replace("/web/game.html?gp="+ data.gamePlayerCreated))
+                })
+                .catch(function (e) {
+                    console.log(e)
+                })
+        },
 //        addclassToUserName: function () {
 //            for(i=0; i<main.leaderboard.length;i++){
 //            if (( this.logedUser == true)&& (this.playerName == main.leaderboard[i].name)) {
@@ -126,12 +142,12 @@ var main = new Vue({
                                 userName: "pending",
                                 gameplayer: ""
                             }
-                            var button = document.createElement("BUTTON");
-                            button.classList.add("btn-outline-light");
-                            button.classList.add("btn");
-                            var buttonText = document.createTextNode("ENTER GAME");
-                            button.appendChild(buttonText);
-                            tableData5.appendChild(button);
+//                            var button = document.createElement("BUTTON");
+//                            button.classList.add("btn-outline-light");
+//                            button.classList.add("btn");
+//                            var buttonText = document.createTextNode("ENTER GAME");
+//                            button.appendChild(buttonText);
+//                            tableData5.appendChild(button);
                         }
                         var numberNode = document.createTextNode(numberOfGame)
                         var tableData1 = document.createElement("td");

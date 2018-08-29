@@ -164,7 +164,7 @@ function onDataFetchFailed(error) {
 
 function onConversionToJsonSuccessful(json) {
     console.log("success!!!!", json);
-    data = json;
+    data = json["game-view"];
     main.game_view = data;
     main.userShipPosition()
     main.getTheName()
