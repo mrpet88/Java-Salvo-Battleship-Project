@@ -24,14 +24,15 @@
             </div>
             <div class="wrong-credentials" id="message"></div>
 
-            <form id="loginform" name="loginform" class="form   ">
-                <div class="row placeholders  ">
-                    <input id="username" class="col-lg-4 offset-lg-1 form-control-plaintext mail-input " placeholder="Enter email" name="username">
-                    <input id="password" class="col-lg-4 offset-lg-2 form-control-plaintext password-input " placeholder="Enter password" name="password">
+            <form id="loginform" name="loginform" class="form">
+                <div class="row placeholders justify-content-around  ">
+                    <input id="username" v-show="!notable" class="col-lg-3 align-self-center  form-control-plaintext mail-input " placeholder="Enter email" name="username">
+                     <button v-on:click="createGame()" v-show="notable" class="col-lg-2 btn btn-outline-light create-game  "  type="button">create game</button>
+                    <input id="password" v-show="!notable"  class="col-lg-3  form-control-plaintext password-input align-self-center " placeholder="Enter password" name="password">
                 </div>
-                <div class="row buttons-form ">
-                    <button v-if="logInButton" v-on:click="logIn()" type="button" class="login-button col-lg-4 offset-lg-1 btn btn-outline-light ">Login</button>
-                    <button v-if="signUpButton" v-on:click="signUp()" type="button" class="signup-button col-lg-4 offset-lg-2 btn btn-outline-light">SignUp</button>
+                <div class="row buttons-form justify-content-around ">
+                    <button v-if="logInButton" v-on:click="logIn()" type="button" class="login-button col-lg-3  btn btn-outline-light ">Login</button>
+                    <button v-if="signUpButton" v-on:click="signUp()" type="button" class="signup-button col-lg-3  btn btn-outline-light">SignUp</button>
                 </div>
             </form>
             <div class="table-responsive-md table-background">
@@ -56,7 +57,7 @@
             </div>
 
             <div class="table-responsive-md table-background">
-                <table  class="table gameTable text-center">
+                <table class="table gameTable text-center">
                     <tr id="header">
                         <th>#</th>
                         <th>Host</th>
@@ -64,13 +65,13 @@
                         <th>player two</th>
                         <th></th>
                     </tr>
-                    <tbody  id="gameList" v-if ="hidetable">
-
+                    <tbody id="gameList" v-show="!hidetable">
+                        
                     </tbody>
                 </table>
-                       <p class="notable-message"v-if="notable">'Please log in to enter a game'</p>
+                <p class="notable-message" v-show="!notable">'Please log in to enter a game'</p>
             </div>
-             <button  v-on:click="createGame()" type="button">create game</button>
+           
         </div>
 
     </div>

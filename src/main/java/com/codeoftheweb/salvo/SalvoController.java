@@ -215,6 +215,21 @@ public class SalvoController {
         }
     }
 
+    @RequestMapping(path = "/game_view/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> joinGame(Authentication authentication) {
+        if(authentication == null){
+            return new ResponseEntity<>(makeMap("error", "No logged in player to create game")
+                    , HttpStatus.UNAUTHORIZED);
+        }else{
+
+            GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(game,currentPlayer(authentication), new Date()));
+
+            return new ResponseEntity<>(makeMap("gamePlayerCreated", gamePlayer.getId())
+                    , HttpStatus.CREATED);
+        }
+    }
+
+
 }
 
 

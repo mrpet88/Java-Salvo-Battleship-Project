@@ -11,23 +11,28 @@ var main = new Vue({
         logOutButton: false,
         playerOne: "",
         playerTwo: "",
-        hidetable: true,
-        notable: false
+        hidetable: false,
+        notable: true,
+        id:""
     },
     created: function () {
         this.getGames()
         this.hideGameTable()
-        this.addclassToUserName()
+          
     },
     methods: {
         hideGameTable: function () {
-            if (main.playerName == '') {
+            console.log(this.playerName)
+            if (this.playerName == '') {
+                this.hidetable = true;
+                this.notable = false;
+            } else {
                 this.hidetable = false;
                 this.notable = true;
             }
         },
         createGame: function () {
-                 fetch("/api/games", {
+            fetch("/api/games", {
                     credentials: 'include',
                     method: 'POST',
                     headers: {
@@ -36,19 +41,16 @@ var main = new Vue({
                     },
                 })
                 .then(response => {
-                     response.json().then(data => window.location.replace("/web/game.html?gp="+ data.gamePlayerCreated))
-                })
+                    response.json().then(data => window.location.replace("/web/game.html?gp=" + data.gamePlayerCreated))
+                })   
+                
+                     
                 .catch(function (e) {
                     console.log(e)
+                
                 })
         },
-//        addclassToUserName: function () {
-//            for(i=0; i<main.leaderboard.length;i++){
-//            if (( this.logedUser == true)&& (this.playerName == main.leaderboard[i].name)) {
-//               main.leaderboard[i].name.classList.add("loggedPlayer");
-//            }
-//            console.log(main.leaderboard[0].name)
-//        }},
+    
 
         logIn: function () {
             var message = ""
@@ -67,8 +69,9 @@ var main = new Vue({
                 })
                 .then(response => {
                     if (response.status == 200) {
-                        location.reload();
+                       location.reload()
                         main.getGames();
+                         main.hideGameTable()
                     } else {
                         alert("please fill the right username and password")
                         //                        document.getElementById("message").innerHTML = "please fill the right username and password"
@@ -126,7 +129,6 @@ var main = new Vue({
                     for (i = 0; i < response.games.length; i++) {
                         numberOfGame += 1
                         var eachGame = document.createElement("tr");
-                        console.log(response.games[i].id);
                         var tableData5 = document.createElement("td");
                         main.playerOne = {
                             userName: response.games[i].gamePlayers["0"].player.userName,
@@ -141,23 +143,18 @@ var main = new Vue({
                             main.playerTwo = {
                                 userName: "pending",
                                 gameplayer: ""
-                            }
-//                            var button = document.createElement("BUTTON");
-//                            button.classList.add("btn-outline-light");
-//                            button.classList.add("btn");
-//                            var buttonText = document.createTextNode("ENTER GAME");
-//                            button.appendChild(buttonText);
-//                            tableData5.appendChild(button);
+                            }  
                         }
+                            
+                      
                         var numberNode = document.createTextNode(numberOfGame)
                         var tableData1 = document.createElement("td");
                         var textnode1 = document.createTextNode(this.playerOne.userName);
                         var tableData2 = document.createElement("td");
                         var tableData4 = document.createElement("td");
 
-                        if (main.playerOne.userName == main.playerName) {
+                        if (main.playerOne.userName == main.playerName)   {
                             tableData2.classList.add("loggedPlayer");
-                            tableData2.setAttribute("href", "http://www.microsoft.com");
                             var button = document.createElement("a");
                             button.setAttribute("href", "/web/game.html?gp=" + main.playerOne.gameplayer)
                             button.classList.add("btn-outline-light");
@@ -165,9 +162,7 @@ var main = new Vue({
                             var buttonText = document.createTextNode("ENTER GAME");
                             button.appendChild(buttonText);
                             tableData5.appendChild(button);
-                        }
-
-                        if (main.playerTwo.userName == main.playerName) {
+                        } else if (main.playerTwo.userName == main.playerName) {
                             tableData4.classList.add("loggedPlayer");
                             var button = document.createElement("a");
                             button.setAttribute("href", "/web/game.html?gp=" + main.playerTwo.gameplayer)
@@ -176,25 +171,23 @@ var main = new Vue({
                             var buttonText = document.createTextNode("ENTER GAME");
                             button.appendChild(buttonText);
                             tableData5.appendChild(button);
-                        }
-                        if ((main.playerName != main.playerOne.userName) && (main.playerName != main.playerTwo.userName) && (main.playerTwo.userName != "pending")) {
+                        } else if ((main.playerName != main.playerOne.userName) && (main.playerName != main.playerTwo.userName) && (main.playerTwo.userName !="pending")){                       
                             var button = document.createElement("BUTTON");
                             button.classList.add("btn-outline-danger");
                             button.classList.add("btn");
                             var buttonText = document.createTextNode("NO ACCESS");
                             button.appendChild(buttonText);
                             tableData5.appendChild(button);
+                        } else if (main.playerTwo.userName == "pending"){
+                            var button = document.createElement("a");
+//                            button.setAttribute("href", "/web/game.html?gp=" + main.playerTwo.gameplayer)
+                            button.classList.add("btn-outline-light");
+                            button.classList.add("btn");
+                            var buttonText = document.createTextNode("JOIN GAME");
+                            button.appendChild(buttonText);
+                            tableData5.appendChild(button);
                         }
-
-                        //                         if((main.playerName == '')&&(main.playerTwo == "pending")){
-                        //                         var button = document.createElement("BUTTON");
-                        //                            button.classList.add("btn-outline-danger");
-                        //                            button.classList.add("btn");
-                        //                            var buttonText = document.createTextNode("NO ACCESS");
-                        //                            button.appendChild(buttonText);
-                        //                            tableData5.appendChild(button);
-                        //                        
-                        //                        }
+                  
                         var tableData3 = document.createElement("td");
                         var textnode3 = document.createTextNode("vs");
                         var textnode2 = document.createTextNode(this.playerTwo.userName);
@@ -208,16 +201,11 @@ var main = new Vue({
                         eachGame.appendChild(tableData4);
                         eachGame.appendChild(tableData5);
                         document.getElementById("gameList").appendChild(eachGame)
-
-
                     }
                 })
                 .catch(response => console.log(response));
         },
-        getTheid: function () {
-            var name = main.playerName
-
-        },
+    
 
         signUp: function () {
             var message = ""
@@ -285,6 +273,7 @@ function onConversionToJsonSuccessful(json) {
     main.leaderboard = data.sort((a, b) => b.totalScore - a.totalScore);
     main.player = data
     main.hideGameTable()
+
 
 
 }
