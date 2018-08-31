@@ -13,12 +13,13 @@ var main = new Vue({
         playerTwo: "",
         hidetable: false,
         notable: true,
-        id:""
+        id: ""
     },
     created: function () {
         this.getGames()
         this.hideGameTable()
-          
+        //        this.joinAgame()
+
     },
     methods: {
         hideGameTable: function () {
@@ -42,15 +43,15 @@ var main = new Vue({
                 })
                 .then(response => {
                     response.json().then(data => window.location.replace("/web/game.html?gp=" + data.gamePlayerCreated))
-                })   
-                
-                     
+                })
+
+
                 .catch(function (e) {
                     console.log(e)
-                
+
                 })
         },
-    
+
 
         logIn: function () {
             var message = ""
@@ -69,9 +70,9 @@ var main = new Vue({
                 })
                 .then(response => {
                     if (response.status == 200) {
-                       location.reload()
+                        location.reload()
                         main.getGames();
-                         main.hideGameTable()
+                        main.hideGameTable()
                     } else {
                         alert("please fill the right username and password")
                         //                        document.getElementById("message").innerHTML = "please fill the right username and password"
@@ -130,6 +131,7 @@ var main = new Vue({
                         numberOfGame += 1
                         var eachGame = document.createElement("tr");
                         var tableData5 = document.createElement("td");
+                        //                        main.gameId = response.games[i].id;
                         main.playerOne = {
                             userName: response.games[i].gamePlayers["0"].player.userName,
                             gameplayer: response.games[i].gamePlayers["0"].id
@@ -143,17 +145,17 @@ var main = new Vue({
                             main.playerTwo = {
                                 userName: "pending",
                                 gameplayer: ""
-                            }  
+                            }
                         }
-                            
-                      
+
+
                         var numberNode = document.createTextNode(numberOfGame)
                         var tableData1 = document.createElement("td");
                         var textnode1 = document.createTextNode(this.playerOne.userName);
                         var tableData2 = document.createElement("td");
                         var tableData4 = document.createElement("td");
 
-                        if (main.playerOne.userName == main.playerName)   {
+                        if (main.playerOne.userName == main.playerName) {
                             tableData2.classList.add("loggedPlayer");
                             var button = document.createElement("a");
                             button.setAttribute("href", "/web/game.html?gp=" + main.playerOne.gameplayer)
@@ -171,23 +173,30 @@ var main = new Vue({
                             var buttonText = document.createTextNode("ENTER GAME");
                             button.appendChild(buttonText);
                             tableData5.appendChild(button);
-                        } else if ((main.playerName != main.playerOne.userName) && (main.playerName != main.playerTwo.userName) && (main.playerTwo.userName !="pending")){                       
+                        } else if ((main.playerName != main.playerOne.userName) && (main.playerName != main.playerTwo.userName) && (main.playerTwo.userName != "pending")) {
                             var button = document.createElement("BUTTON");
                             button.classList.add("btn-outline-danger");
                             button.classList.add("btn");
                             var buttonText = document.createTextNode("NO ACCESS");
                             button.appendChild(buttonText);
                             tableData5.appendChild(button);
-                        } else if (main.playerTwo.userName == "pending"){
+                        } else if (main.playerTwo.userName == "pending") {
                             var button = document.createElement("a");
-//                            button.setAttribute("href", "/web/game.html?gp=" + main.playerTwo.gameplayer)
+                            //                            button.setAttribute("href", "/web/game.html?gp=" + main.playerTwo.gameplayer)
                             button.classList.add("btn-outline-light");
                             button.classList.add("btn");
                             var buttonText = document.createTextNode("JOIN GAME");
                             button.appendChild(buttonText);
                             tableData5.appendChild(button);
+                            button.setAttribute("data-gameId", response.games[i].id)
+
+                            button.addEventListener("click", function () {
+                                var gameId = this.getAttribute("data-gameId");
+                                console.log(gameId)
+                                main.joinAgame(gameId)
+                            })
                         }
-                  
+
                         var tableData3 = document.createElement("td");
                         var textnode3 = document.createTextNode("vs");
                         var textnode2 = document.createTextNode(this.playerTwo.userName);
@@ -205,33 +214,57 @@ var main = new Vue({
                 })
                 .catch(response => console.log(response));
         },
-    
+        joinAgame: function (id) {
+                fetch("/api/game/" + id + "/players", {
+                        credentials: 'include',
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                    })
+                    .then(response => {
+                            response.json().then(function (response) {
+                                    console.log(response);
+                                    window.location.replace("/web/game.html?gp=" + response.gamePlayerID.id)
+                            })
 
-        signUp: function () {
-            var message = ""
-            var userName = document.getElementById("username").value
 
-            var password = document.getElementById("password").value
-            console.log(password);
-            fetch("/api/players", {
-                    credentials: 'include',
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: 'userName=' + userName + '&password=' + password,
-                })
-                .then(response => {
-                    if (response.status == 201) {
-                        location.reload();
-                    }
-                })
-                .catch(function (e) {
-                    console.log(e)
-                })
-        },
+                    })
+
+            .catch(function (e) {
+                console.log(e)
+
+            })
     }
+
+},
+
+signUp: function () {
+    var message = ""
+    var userName = document.getElementById("username").value
+
+    var password = document.getElementById("password").value
+    console.log(password);
+    fetch("/api/players", {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'userName=' + userName + '&password=' + password,
+        })
+        .then(response => {
+            if (response.status == 201) {
+                location.reload();
+            }
+        })
+        .catch(function (e) {
+            console.log(e)
+        })
+},
+
 });
 start();
 

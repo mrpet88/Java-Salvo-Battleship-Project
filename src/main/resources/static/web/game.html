@@ -14,6 +14,7 @@
 <body>
     <div id="VueMain">
         <button v-if="logOutButton" v-on:click="logOut()" type="button">LogOut</button>
+        <button v-if="returnButton" v-on:click="historyBackButton()" type="button">Return</button>
         <div class="flex">
             <div class="flex-column">
                 <div class="headers">

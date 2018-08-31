@@ -17,6 +17,9 @@ var main = new Vue({
 
     },
     methods: {
+        historyBackButton:function(){
+            window.history.back();        
+        },
         getGames: function () {
             fetch("/api/games", {
                     method: "GET",

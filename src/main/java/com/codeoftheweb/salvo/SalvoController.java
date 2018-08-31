@@ -215,19 +215,47 @@ public class SalvoController {
         }
     }
 
-    @RequestMapping(path = "/game_view/{id}", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> joinGame(Authentication authentication) {
+    @RequestMapping(path = "/game/{id}/players", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> joinGame(@PathVariable Long id, Authentication authentication) {
+
+        Game game = gameRepository.findOne(id);
+
+
         if(authentication == null){
             return new ResponseEntity<>(makeMap("error", "No logged in player to create game")
                     , HttpStatus.UNAUTHORIZED);
-        }else{
-
-            GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(game,currentPlayer(authentication), new Date()));
-
-            return new ResponseEntity<>(makeMap("gamePlayerCreated", gamePlayer.getId())
+        }else if(game == null){
+            return new ResponseEntity<>(makeMap("error", "No existing game")
+                    , HttpStatus.UNAUTHORIZED);
+        }
+        else{
+            Player player = currentPlayer(authentication);
+            GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(game,player, new Date()));
+            return new ResponseEntity<>(makeMap("gamePlayerID", makeGamePlayersDTO(gamePlayer))
                     , HttpStatus.CREATED);
         }
     }
+    @RequestMapping(path = "/games/players/{gamePlayerID/ships}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getShips(@PathVariable Long id, String shipType) {
+
+        Ship ship = ShipRepository.findAll();
+
+
+        if(authentication == null){
+            return new ResponseEntity<>(makeMap("error", "No logged in player to create game")
+                    , HttpStatus.UNAUTHORIZED);
+        }else if(game == null){
+            return new ResponseEntity<>(makeMap("error", "No existing game")
+                    , HttpStatus.UNAUTHORIZED);
+        }
+        else{
+            Player player = currentPlayer(authentication);
+            GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(game,player, new Date()));
+            return new ResponseEntity<>(makeMap("gamePlayerID", makeGamePlayersDTO(gamePlayer))
+                    , HttpStatus.CREATED);
+        }
+    }
+
 
 
 }
