@@ -8,54 +8,80 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/gameStyle.css">
     <title> Games </title>
-    <!--    <link rel="stylesheet" href="css/">-->
 </head>
 
 <body>
     <div id="VueMain">
         <button v-if="logOutButton" v-on:click="logOut()" type="button">LogOut</button>
-        <button v-if="returnButton" v-on:click="historyBackButton()" type="button">Return</button>
-        <div class="flex">
-            <div class="flex-column">
+        <a v-if="returnButton" href="games.html" type="button">Return</a>
+        <a v-if="returnButton" @click="listOfShips(id)" type="button">place ships</a>
+        <div class="ships-table">
+            <div  class="all-the-ships">
+                <div class="aircraftcarrier-img">
+                    <img class="aircraftCarrier" alt="aircraft_carrier" src="aircraft_carrier_modified.png" onclick="rotate('drag1')" id="drag1"  draggable="true" ondragstart="drag(event)">
+                </div>
+               
+                <div class="battleship-img">
+                    <img class="battleship" alt="battleship" src="battleship_modified.png" onclick="rotate('drag2')" id="drag2" draggable="true" ondragstart="drag(event)">
+                </div>
+                
+                <div class="destroyer-img">
+                    <img class="destroyer" alt="destroyer" src="destroyer_modified.png" id="drag3" draggable="true" ondragstart="drag(event)">
+                </div>
+            
+                <div class="patrolboat-img">
+                    <img class="patrolboat" alt="patrolboat" src="patrol_boat_modified.png" id="drag4" draggable="true" ondragstart="drag(event)">
+                </div>
+                <div class="submarine-img">
+                    <img class="submarine" alt="submarine" src="submarine_modified.png" id="drag5" draggable="true" ondragstart="drag(event)">
+                </div>
+            </div>
+            <div class="box6 flex dropzone" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="flex-column">
+                    <!--
                 <div class="headers">
                     <p>Ship Location</p>
                     <p>{{playerOne}}</p>
                 </div>
-                <table class="first-player">
-                    <tr>
-                        <th></th>
-                        <th id="table-headers" v-for="number in rowNumbers">{{number}}</th>
-                    </tr>
-                    <tbody id="table-rows">
-                        <tr v-for="letter in colLetters">
-                            <th>{{letter}}</th>
-                            <td class="content" v-bind:id="'U'+letter + number" v-for="number in rowNumbers"></td>
+-->
+                    <table class="first-player">
+                        <tr>
+                            <th></th>
+                            <th class="noDrop" id="table-headers" v-for="number in rowNumbers">{{number}}</th>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
+                        <tbody id="table-rows">
+                            <tr v-for="letter in colLetters">
+                                <th class="noDrop" id="table-columns">{{letter}}</th>
+                                <td class="content cell" v-bind:id="'U'+letter + number" v-for="number in rowNumbers"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <div class="flex-column">
+                <div v-if="secondPlayerGrid" class="flex-column">
+                    <!--
                 <div class="headers">
 
                     <p>Salvo Location</p>
                     <p>{{playerTwo}}</p>
                 </div>
+-->
 
-                <table class="second-player">
-                    <tr>
-                        <th></th>
-                        <th id="table-headers" v-for="number in rowNumbers">{{number}}</th>
-                    </tr>
-                    <tbody id="table-rows">
-                        <tr v-for="letter in colLetters">
-                            <th>{{letter}}</th>
-                            <td class="content" v-bind:id="'E'+letter + number" v-for="number in rowNumbers"></td>
+                    <table class="second-player">
+                        <tr>
+                            <th></th>
+                            <th id="table-headers" v-for="number in rowNumbers">{{number}}</th>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
+                        <tbody id="table-rows">
+                            <tr v-for="letter in colLetters">
+                                <th>{{letter}}</th>
+                                <td class="content" v-bind:id="'E'+letter + number" v-for="number in rowNumbers"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
+            </div>
         </div>
     </div>
 

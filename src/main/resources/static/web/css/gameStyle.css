@@ -1,15 +1,9 @@
 body {
     height: 100vp;
-    background-image: url(caribbean-wallpaper-16.jpg);
+    background-image: 
     background-repeat: no-repeat;
     background-position: center;
 }
-
-.flex {
-    display: flex;
-    justify-content: space-evenly;
-}
-
 .flex-column {
     display: flex;
     flex-direction: column;
@@ -51,4 +45,65 @@ tr {
 th {
     width: 6vh;
     text-align: center;
+}
+.aircraftcarrier-img,.battleship-img,.destroyer-img,.patrolboat-img,.submarine-img{
+    width: 20%;
+    height: 6vh;
+    position: relative;
+}
+
+.aircraftCarrier{
+    height: 6vh;
+    width: 30vh;
+    position: absolute;
+    top: 0px;
+    z-index: 9;
+}
+.battleship{
+    height: 6vh;
+    width: 24vh;
+    position: absolute;
+    top: 0px;
+    z-index: 9;
+}
+.destroyer{
+    height: 6vh;
+    width: 18vh;
+    position: absolute;
+    top: 0px;
+    z-index: 9;
+}
+.patrolboat{
+    height: 6vh;
+    width: 12vh;
+    position: absolute;
+    top: 0px;
+    z-index: 9;
+}
+.submarine{
+    height: 6vh;
+    width: 18vh;
+    position: absolute;
+    top: 0px;
+    z-index 9;
+}
+
+.ships-table{
+    display: flex;
+}
+.cell{
+    position: relative;
+    text-align: left;
+}
+.all-the-ships {
+    width: 35vh;
+    height: 600px;
+    position: relative;
+}
+.vertical{
+    transform: rotate(0deg);
+}
+.horizontal{
+    transform: rotate(90deg);
+
 }

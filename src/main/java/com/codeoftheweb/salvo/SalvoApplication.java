@@ -363,6 +363,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
 //                .antMatchers("/**").permitAll()
                 .antMatchers("/api/games").permitAll()
+                .antMatchers("/games/players/{gamePlayerId}/ships").permitAll()
                 .antMatchers("/api/").permitAll()
                 .antMatchers("/api/game/**").permitAll()
                 .antMatchers("/api/leaderboard").permitAll()
@@ -374,6 +375,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/web/css/games.css").permitAll()
                 .antMatchers("/web/css/leaderboard.css").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
+                .antMatchers("/web/images/**").permitAll()
+
                 .antMatchers("/web/css/leaderboard_wallpaper.jpg").permitAll()
                 .antMatchers("/rest/**").denyAll()
                 .anyRequest().fullyAuthenticated()

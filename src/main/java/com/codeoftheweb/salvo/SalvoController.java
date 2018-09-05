@@ -26,6 +26,9 @@ public class SalvoController {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Autowired
+    private ShipRepository shipRepository;
+
     @RequestMapping(value = "/games",method = RequestMethod.GET)
     public Map<String,Object> getGamesInfo(Authentication authentication) {
         Map<String,Object> map = new HashMap<>();
@@ -235,23 +238,31 @@ public class SalvoController {
                     , HttpStatus.CREATED);
         }
     }
-    @RequestMapping(path = "/games/players/{gamePlayerID/ships}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getShips(@PathVariable Long id, String shipType) {
+    @RequestMapping(value="/games/players/{id}/ships", method=RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> addShips(@PathVariable long id,
+                                                        @RequestBody Set<Ship> ships,
+                                                        Authentication authentication) {
+        GamePlayer gamePlayer = gamePlayerRepository.findOne(id);
 
-        Ship ship = ShipRepository.findAll();
-
-
-        if(authentication == null){
-            return new ResponseEntity<>(makeMap("error", "No logged in player to create game")
+        if(authentication == null) {
+            return new ResponseEntity<>(makeMap("error", "No logged in player to add ships")
                     , HttpStatus.UNAUTHORIZED);
-        }else if(game == null){
-            return new ResponseEntity<>(makeMap("error", "No existing game")
+        } else if (gamePlayer== null){
+            return new ResponseEntity<>(makeMap("error", "The gamePlayer does not exist")
+                , HttpStatus.UNAUTHORIZED);
+        } else if(gamePlayer.getPlayer() != currentPlayer(authentication)){
+            return new ResponseEntity<>(makeMap("error", "This is not your game (the current User is not in this gamePlayer)")
                     , HttpStatus.UNAUTHORIZED);
-        }
-        else{
-            Player player = currentPlayer(authentication);
-            GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(game,player, new Date()));
-            return new ResponseEntity<>(makeMap("gamePlayerID", makeGamePlayersDTO(gamePlayer))
+        } else if(gamePlayer.getShip().size() !=0) {
+            return new ResponseEntity<>(makeMap("error", "Ships already has been placed")
+                    , HttpStatus.FORBIDDEN);
+        } else {
+
+            for (Ship ship : ships) {
+                ship.setGamePlayer(gamePlayer);
+               shipRepository.save(ship);
+            }
+            return new ResponseEntity<>(makeMap("ships", makeGamePlayersDTO(gamePlayer))
                     , HttpStatus.CREATED);
         }
     }

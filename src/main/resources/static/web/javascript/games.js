@@ -182,7 +182,6 @@ var main = new Vue({
                             tableData5.appendChild(button);
                         } else if (main.playerTwo.userName == "pending") {
                             var button = document.createElement("a");
-                            //                            button.setAttribute("href", "/web/game.html?gp=" + main.playerTwo.gameplayer)
                             button.classList.add("btn-outline-light");
                             button.classList.add("btn");
                             var buttonText = document.createTextNode("JOIN GAME");
