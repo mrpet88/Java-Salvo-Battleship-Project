@@ -1,8 +1,9 @@
 body {
     height: 100vp;
-    background-image: 
+    background-image: url(wallpaper2you_274303.jpg);
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 .flex-column {
     display: flex;
@@ -85,7 +86,7 @@ th {
     width: 18vh;
     position: absolute;
     top: 0px;
-    z-index 9;
+    z-index: 9;
 }
 
 .ships-table{
@@ -97,13 +98,19 @@ th {
 }
 .all-the-ships {
     width: 35vh;
-    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
     position: relative;
 }
-.vertical{
+.horizontal{
     transform: rotate(0deg);
 }
-.horizontal{
+.vertical{
     transform: rotate(90deg);
-
+    -webkit-transform-origin: bottom left;
+}
+.hover{
+    background-color: red;
 }

@@ -16,24 +16,24 @@
         <a v-if="returnButton" href="games.html" type="button">Return</a>
         <a v-if="returnButton" @click="listOfShips(id)" type="button">place ships</a>
         <div class="ships-table">
-            <div  class="all-the-ships">
+            <div  class="all-the-ships" id="ships-container">
                 <div class="aircraftcarrier-img">
-                    <img class="aircraftCarrier" alt="aircraft_carrier" src="aircraft_carrier_modified.png" onclick="rotate('drag1')" id="drag1"  draggable="true" ondragstart="drag(event)">
+                    <img class="aircraftCarrier horizontal" alt="aircraft_carrier" src="aircraft_carrier_modified.png" onclick="rotate('drag1')" id="drag1"  draggable="true" ondragstart="drag(event)">
                 </div>
                
                 <div class="battleship-img">
-                    <img class="battleship" alt="battleship" src="battleship_modified.png" onclick="rotate('drag2')" id="drag2" draggable="true" ondragstart="drag(event)">
+                    <img class="battleship horizontal" alt="battleship" src="battleship_modified.png" onclick="rotate('drag2')" id="drag2" draggable="true" ondragstart="drag(event)" >
                 </div>
                 
                 <div class="destroyer-img">
-                    <img class="destroyer" alt="destroyer" src="destroyer_modified.png" id="drag3" draggable="true" ondragstart="drag(event)">
+                    <img class="destroyer horizontal" alt="destroyer" src="destroyer_modified.png" onclick="rotate('drag3')" id="drag3" draggable="true" ondragstart="drag(event)">
                 </div>
             
                 <div class="patrolboat-img">
-                    <img class="patrolboat" alt="patrolboat" src="patrol_boat_modified.png" id="drag4" draggable="true" ondragstart="drag(event)">
+                    <img class="patrolboat horizontal" alt="patrolboat" src="patrol_boat_modified.png" onclick="rotate('drag4')" id="drag4" draggable="true" ondragstart="drag(event)">
                 </div>
                 <div class="submarine-img">
-                    <img class="submarine" alt="submarine" src="submarine_modified.png" id="drag5" draggable="true" ondragstart="drag(event)">
+                    <img class="submarine horizontal" alt="submarine" src="submarine_modified.png" onclick="rotate('drag5')" id="drag5" draggable="true" ondragstart="drag(event)">
                 </div>
             </div>
             <div class="box6 flex dropzone" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
