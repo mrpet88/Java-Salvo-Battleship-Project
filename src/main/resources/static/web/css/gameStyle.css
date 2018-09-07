@@ -4,13 +4,30 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.flex-top-page {
+    display: flex;
+    height: 15vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(118, 72, 72, 0.05)),
+    to(rgba(97, 22, 22, 0.05)), color-stop(.5, #832525d4));
+}
+
+p {
+    color: white;
 }
 
 .headers {
     border: solid 1px black;
     background: rgba(255, 255, 255, 0.4);
 }
-.flex-row{
+
+.flex-row {
     display: flex;
     justify-content: space-evenly;
 }
@@ -45,41 +62,34 @@ th {
     width: 6vh;
     text-align: center;
 }
-.aircraftcarrier-img,.battleship-img,.destroyer-img,.patrolboat-img,.submarine-img{
+
+.aircraftcarrier-img,
+.battleship-img,
+.destroyer-img,
+.patrolboat-img,
+.submarine-img {
     width: 20%;
     height: 6vh;
     position: relative;
 }
 
-.aircraftCarrier{
+.aircraftCarrier {
     height: 6vh;
     width: 30vh;
     position: absolute;
     top: 0px;
     z-index: 9;
 }
-.battleship{
+
+.battleship {
     height: 6vh;
     width: 24vh;
     position: absolute;
     top: 0px;
     z-index: 9;
 }
-.destroyer{
-    height: 6vh;
-    width: 18vh;
-    position: absolute;
-    top: 0px;
-    z-index: 9;
-}
-.patrolboat{
-    height: 6vh;
-    width: 12vh;
-    position: absolute;
-    top: 0px;
-    z-index: 9;
-}
-.submarine{
+
+.destroyer {
     height: 6vh;
     width: 18vh;
     position: absolute;
@@ -87,10 +97,27 @@ th {
     z-index: 9;
 }
 
-.cell{
+.patrolboat {
+    height: 6vh;
+    width: 12vh;
+    position: absolute;
+    top: 0px;
+    z-index: 9;
+}
+
+.submarine {
+    height: 6vh;
+    width: 18vh;
+    position: absolute;
+    top: 0px;
+    z-index: 9;
+}
+
+.cell {
     position: relative;
     text-align: left;
 }
+
 .all-the-ships {
     width: 35vh;
     display: flex;
@@ -99,15 +126,18 @@ th {
     text-align: center;
     position: relative;
 }
-.horizontal{
+
+.horizontal {
     transform: rotate(0deg);
 }
-.vertical{
+
+.vertical {
     transform: rotate(90deg);
     -webkit-transform-origin: bottom left;
 }
-.btn{
-background: #ccc;
+
+.btn {
+/*    background: #ccc;*/
+    color: white;
+    border-color: white;
 }
-
-
