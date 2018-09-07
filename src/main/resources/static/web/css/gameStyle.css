@@ -1,20 +1,18 @@
 body {
-    height: 100vp;
+    height: 100vh;
     background-image: url(wallpaper2you_274303.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
-.flex-column {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
 
 .headers {
     border: solid 1px black;
     background: rgba(255, 255, 255, 0.4);
-
+}
+.flex-row{
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .ship-location {
@@ -89,9 +87,6 @@ th {
     z-index: 9;
 }
 
-.ships-table{
-    display: flex;
-}
 .cell{
     position: relative;
     text-align: left;
@@ -111,6 +106,8 @@ th {
     transform: rotate(90deg);
     -webkit-transform-origin: bottom left;
 }
-.hover{
-    background-color: red;
+.btn{
+background: #ccc;
 }
+
+

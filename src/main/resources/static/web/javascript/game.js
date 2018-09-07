@@ -315,7 +315,11 @@ function fillArrayOfShips(id) {
         placeShipBack(ship)
     }
     console.log(arrayOfShips)
-    main.listOfShips(arrayOfShips,main.id)
+
+    if (arrayOfShips.length == 5) {
+        main.placeShips = true;
+
+    }
 }
 
 function rotate(id) {
@@ -398,21 +402,22 @@ var main = new Vue({
         enemyHits: [],
         logOutButton: true,
         player: [],
-        secondPlayerGrid: false,
+        secondPlayerGrid: false,//false
         shipsObject: [],
+        placeShips: false,//false
+        allTheShips: true,
 
     },
     created: function () {
         this.findTheId();
         start(this.id);
-        //        this.drag();
-        //        this.dragstart();
-        //        this.dragend();
-        //        this.dragover();
-        //        this.dragenter();
+        this.whatever2;
+        
     },
     methods: {
-
+        whatever: function () {
+            main.listOfShips(arrayOfShips, main.id)
+        },
         getGames: function () {
             fetch("/api/games", {
                     method: "GET",
@@ -423,9 +428,9 @@ var main = new Vue({
                     console.log(response.player);
                     console.log(response.player != null)
                     if (response.player != null) {
-
                         main.logOutButton = true;
                     }
+
                 })
                 .catch(response => console.log(response));
         },
@@ -441,14 +446,8 @@ var main = new Vue({
                 })
                 .then(response => {
                     response.json().then(function (response) {
-                        location.reload();
-                        console.log(response);
-                        console.log(id)
-
+                    
                     })
-//                    this.secondPlayerGrid = true;
-
-
                 })
 
                 .catch(function (e) {
@@ -563,7 +562,7 @@ function start(id) {
 			headers: new Headers({
 				"API-whatever-you-want": 'SDHFAIWEFN4r34SEHFE4534sdsDF'
 			})
-			*/
+            */
 
         .then(onDataFetched)
         .catch(onDataFetchFailed);
@@ -576,6 +575,7 @@ function onDataFetched(response) {
         .then(onConversionToJsonSuccessful)
         .catch(onConversionToJsonFailed);
     console.log(2);
+
 }
 
 function onDataFetchFailed(error) {
@@ -585,12 +585,22 @@ function onDataFetchFailed(error) {
 function onConversionToJsonSuccessful(json) {
     console.log("success!!!!", json);
     data = json["game-view"];
+//    console.log()
+    if (data.ships.length == 5){
+    main.allTheShips=false;
+    main.secondPlayerGrid=true;
+    
+    }
+    console.log(arrayOfShips);
+    console.log(main.allTheShips)
     main.game_view = data;
     main.userShipPosition()
     main.getTheName()
     main.salvoUserPosition()
     main.salvoEnemyPosition()
     main.shipIsHit(main.shipUserLocations, main.salvoEnemyLocations, "U");
+    main.hideTheShips();
+
 
 }
 
