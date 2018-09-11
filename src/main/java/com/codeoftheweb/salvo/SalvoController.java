@@ -29,6 +29,9 @@ public class SalvoController {
     @Autowired
     private ShipRepository shipRepository;
 
+    @Autowired
+    private SalvoRepository salvoRepository;
+
     @RequestMapping(value = "/games",method = RequestMethod.GET)
     public Map<String,Object> getGamesInfo(Authentication authentication) {
         Map<String,Object> map = new HashMap<>();
@@ -267,9 +270,41 @@ public class SalvoController {
         }
     }
 
+    @RequestMapping(path="/games/players/{gamePlayerId}/salvos", method=RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> placingSalvos(@PathVariable long gamePlayerId,
+                                                             @RequestBody List<String> locationSalvos,
+                                                             Authentication authentication){
 
+        GamePlayer gamePlayer = gamePlayerRepository.findOne(gamePlayerId);
+        if(authentication == null) {
+            return new ResponseEntity<>(makeMap("error", "No logged in player to add ships")
+                    , HttpStatus.UNAUTHORIZED);
+            }
+            else if (gamePlayer== null){
+            return new ResponseEntity<>(makeMap("error", "The gamePlayer does not exist")
+                    , HttpStatus.UNAUTHORIZED);
+            }else if(gamePlayer.getPlayer() != currentPlayer(authentication)){
+            return new ResponseEntity<>(makeMap("error", "This is not your game (the current User is not in this gamePlayer)")
+                    , HttpStatus.UNAUTHORIZED);
+            }else if(gamePlayer.getSalvo().size() !=0) {
+            return new ResponseEntity<>(makeMap("error", "Salvo already has been placed")
+                    , HttpStatus.FORBIDDEN);
+            }
+            else {
+            Salvo salvo = new Salvo();
+            salvo.setTurn(gamePlayer.getSalvo().size() + 1);
+            if (salvo.getTurn() == gamePlayer.getSalvo().size() + 1 || salvo.getTurn() == 0) {
+                salvo.setGamePlayer(gamePlayer);
+                salvoRepository.save(salvo);
 
-}
+                return new ResponseEntity<>(makeMap("success", "Created and saved salvos")
+                        , HttpStatus.CREATED);
+            }else{
+                return new ResponseEntity<>(makeMap("error", "You already shot this turn"), HttpStatus.FORBIDDEN);
+            }
+        }
+        }
+    }
 
 
 

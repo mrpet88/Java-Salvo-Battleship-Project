@@ -219,10 +219,35 @@ var tableLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 var tableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 var newShip = [];
 
+//function hhh(){
+//$.post({
+//  url: "/games/players/17/ships", 
+//  data: JSON.stringify ({
+//                "salvo": [{
+//                    "turn": "1",
+//                    "locations": ["A1"]
+//                                        }, {
+//                    "turn": "2",
+//                    "location": ["H5", "H6"]
+//
+//                                        }]
+//            }),
+//  dataType: "text",
+//  contentType: "application/json"
+//})
+//.done(function (response, status, jqXHR) {
+//  alert( "Ships added: " + response );
+//})
+//.fail(function (jqXHR, status, httpError) {
+//  alert("Failed to add ships: " + textStatus + " " + httpError);
+//})
+//
+//}
+//hhh();
+
 
 function allowDrop(ev) {
     ev.preventDefault();
-
 }
 
 function drag(ev) {
@@ -402,9 +427,9 @@ var main = new Vue({
         enemyHits: [],
         logOutButton: true,
         player: [],
-        secondPlayerGrid: false,//false
+        secondPlayerGrid: false, //false
         shipsObject: [],
-        placeShips: false,//false
+        placeShips: false, //false
         allTheShips: true,
 
     },
@@ -412,7 +437,7 @@ var main = new Vue({
         this.findTheId();
         start(this.id);
         this.whatever2;
-        
+
     },
     methods: {
         whatever: function () {
@@ -446,7 +471,7 @@ var main = new Vue({
                 })
                 .then(response => {
                     response.json().then(function (response) {
-                    
+
                     })
                 })
 
@@ -455,6 +480,38 @@ var main = new Vue({
 
                 })
         },
+        listOfSalvoes: function (id) {
+            fetch("/api/games/players/" + id + "/salvos", {
+                    credentials: 'include',
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                            "salvo": [{
+                                "turn": "1",
+                                "locationSalvos": ["A1"]
+                                        }, {
+                                "turn": "2",
+                                "location": ["H5", "H6"]
+
+                                        }]
+                        })
+                })
+                .then(response => {
+                console.log(response)
+                    response.json().then(function (response) {
+
+                    })
+                })
+
+                .catch(function (e) {
+                    console.log(e)
+
+                })
+        },
+
         logOut: function () {
             fetch("/api/logout", {
                 credentials: 'include',
@@ -585,11 +642,11 @@ function onDataFetchFailed(error) {
 function onConversionToJsonSuccessful(json) {
     console.log("success!!!!", json);
     data = json["game-view"];
-//    console.log()
-    if (data.ships.length == 5){
-    main.allTheShips=false;
-    main.secondPlayerGrid=true;
-    
+    //    console.log()
+    if (data.ships.length == 5) {
+        main.allTheShips = false;
+        main.secondPlayerGrid = true;
+
     }
     console.log(arrayOfShips);
     console.log(main.allTheShips)
