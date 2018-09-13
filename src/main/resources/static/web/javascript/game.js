@@ -221,6 +221,7 @@ var main = new Vue({
         salvoLocations: [],
         salvosToPost: [],
         fireButton: false,
+        salvoesCells: [],
 
     },
     created: function () {
@@ -247,43 +248,35 @@ var main = new Vue({
             }
         },
         getSalvoId: function (salvoId) {
-            var salvoLocation = document.getElementById(salvoId);
-            if (salvoLocation.classList.contains("hit-location")) {
-                salvoLocation.classList.remove("hit-location")
+            if (!this.salvoesCells.includes(salvoId)) {
+                this.salvoesCells.push(salvoId);
             } else {
-                salvoLocation.classList.add("hit-location")
+                var index = this.salvoesCells.indexOf(salvoId);
+                if (index > -1) {
+                    document.getElementById("E" + this.salvoesCells.splice(index, 1)).classList.remove('hit-location');
+                }
             }
-            if (salvoLocation.classList.contains("salvo-location")) {
-                salvoLocation.classList.remove("hit-location")
-                console.log(salvoLocation)
-            }
+//            if (document.getElementById("E" + this.salvoesCells.splice(0, 1)).classList.contains('salvo-location')){
+//                document.getElementById("E" + this.salvoesCells.splice(0, 1)).classList.remove('hit-location');
+//            }
             this.fillSalvoArray()
         },
         fillSalvoArray: function () {
-            var allTheSalvoCells = document.getElementsByClassName("hit-location")
-            var finalSalvoArrayCells = [];
-            for (var i = 0; i < allTheSalvoCells.length; i++) {
-                finalSalvoArrayCells.push(allTheSalvoCells[i].id);
-                if (finalSalvoArrayCells[i].charAt(0) === "E") {
-                    finalSalvoArrayCells[i] = finalSalvoArrayCells[i].substr(1)
-                }
+            var cells = this.salvoesCells;
+            console.log(cells)
+            if (cells.length > 5) {
+                document.getElementById("E" + cells.splice(0, 1)).classList.remove('hit-location');
             }
-            console.log(finalSalvoArrayCells.length)
-            if (finalSalvoArrayCells.length == 5) {
+            for (var i = 0; i < cells.length; i++) {
+                document.getElementById('E' + cells[i]).classList.add('hit-location');
+            }
+            if (cells.length == 5) {
                 this.fireButton = true;
             } else {
                 this.fireButton = false;
             }
-            if (finalSalvoArrayCells.length == 6) {
-                var theLastElement = finalSalvoArrayCells[0];
-                console.log(theLastElement)
-                document.getElementById("E"+theLastElement).classList.remove("hit-location");
-                finalSalvoArrayCells.shift();
-                console.log(finalSalvoArrayCells)
-            }
-                        this.salvosToPost = finalSalvoArrayCells;
-            console.log(this.salvosToPost)
-
+            
+            this.salvosToPost = cells
         },
         postTheShips: function () {
             main.listOfShips(arrayOfShips, main.id)
@@ -378,6 +371,7 @@ var main = new Vue({
             this.shipUserLocations = array;
         },
         salvoUserPosition: function () {
+            console.log("in")
             for (var i = 0; i < this.game_view.UserSalvos.length; i++) {
                 for (var j = 0; j < this.game_view.UserSalvos[i].location.length; j++) {
                     var salvoLocation = this.game_view.UserSalvos[i].location[j]
@@ -504,17 +498,19 @@ function onConversionToJsonSuccessful(json) {
     main.game_view = data;
     main.userShipPosition()
     main.getTheName()
-    main.beforePlacingTheShips();
+    console.log("marinos")
 
     //        main.salvoEnemyPosition()
     //        main.shipIsHit(main.shipUserLocations, main.salvoEnemyLocations, "U");
     //        main.hideTheShips();
     for (var i = 0; i < main.game_view.UserSalvos.length; i++) {
         if (main.game_view.UserSalvos[i].location.length == 5) {
+            console.log("hello")
             main.salvoUserPosition()
         }
-
     }
+    main.beforePlacingTheShips();
+
     //    },1000)
 
 

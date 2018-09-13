@@ -56,7 +56,6 @@
             <!--            <a class="salvo-button" v-if="placeShips"><button class="btn btn-outline-secondary" @click="whatever()" type="button">Submit Ships</button></a>-->
             <div class="box6 dropzone" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
 
-                -->
                 <table class="first-player" id="idForSalvo">
                     <tr>
                         <th></th>
@@ -81,7 +80,7 @@
                     <tbody id="table-rows">
                         <tr v-for="letter in colLetters">
                             <th>{{letter}}</th>
-                            <td class="content" v-on:click="getSalvoId('E'+letter + number)" v-bind:id="'E'+letter + number" v-for="number in rowNumbers"></td>
+                            <td class="content" v-on:click="getSalvoId(letter + number)" v-bind:id="'E'+letter + number" v-for="number in rowNumbers"></td>
                         </tr>
                     </tbody>
                 </table>
