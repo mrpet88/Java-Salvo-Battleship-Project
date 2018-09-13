@@ -17,16 +17,18 @@
 
     <div id="VueMain">
         <div class="flex-top-page">
-            <a href="games.html"><button class="btn btn-outline-primary" v-if="returnButton"  type="button">Return</button></a>
-            <a v-if="placeShips" class="btn btn-outline-primary" @click="whatever()" type="button">Submit Ships</a>
-            <p>{{playerOne}}</p>
-            <p>{{playerTwo}}</p>
-            <a><button v-if="logOutButton" v-on:click="logOut()" class="btn btn-outline-primary" type="button"><i class="fas fa-sign-out-alt">LogOut</i></button></a>
-            
-        </div>
-<!--                      <a><button v-on:click="listOfSalvoes(17)" class="btn btn-outline-primary" type="button">>salvo</button></a>-->
+            <a class="two-buttons" href="games.html"><button class="btn btn-outline-secondary" v-if="returnButton"  type="button">Return</button></a>
+            <div class="players-name">
+                <p class="player-names">{{playerOne}}</p>
+                <p class="player-names">vs</p>
+                <p class="player-names">{{playerTwo}}</p>
+            </div>
+            <a class="two-buttons"><button v-if="logOutButton" v-on:click="logOut()" class="btn btn-outline-secondary" type="button"><i class="fas fa-sign-out-alt">LogOut</i></button></a>
 
-        <div class="flex-row">
+        </div>
+        <!--                      <a><button v-on:click="listOfSalvoes(17)" class="btn btn-outline-primary" type="button">>salvo</button></a>-->
+
+        <div class="flex-row" id="r">
             <div class="all-the-ships" id="ships-container" v-if="allTheShips">
                 <div class="aircraftcarrier-img">
                     <img class="aircraftCarrier horizontal" alt="aircraft_carrier" src="aircraft_carrier_modified.png" onclick="rotate('drag1')" id="drag1" draggable="true" ondragstart="drag(event)">
@@ -47,16 +49,15 @@
                     <img class="submarine horizontal" alt="submarine" src="submarine_modified.png" onclick="rotate('drag5')" id="drag5" draggable="true" ondragstart="drag(event)">
                 </div>
             </div>
+            <a class="submit-button" v-if="placeShips"><button class="btn btn-outline-secondary" @click="postTheShips()" type="button">Submit Ships</button></a>
 
+           
+
+            <!--            <a class="salvo-button" v-if="placeShips"><button class="btn btn-outline-secondary" @click="whatever()" type="button">Submit Ships</button></a>-->
             <div class="box6 dropzone" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <!--
-            
-                <div class="headers">
-                    
-                </div>
--->
 
-                <table class="first-player">
+                -->
+                <table class="first-player" id="idForSalvo">
                     <tr>
                         <th></th>
                         <th class="noDrop" id="table-headers" v-for="number in rowNumbers">{{number}}</th>
@@ -70,14 +71,7 @@
                 </table>
             </div>
 
-            <div v-if="secondPlayerGrid" class="flex-column">
-                <!--
-                <div class="headers">
-
-                    <p>Salvo Location</p>
-                    <p>{{playerTwo}}</p>
-                </div>
--->
+            <div v-show="secondPlayerGrid" class="flex-column">
 
                 <table class="second-player">
                     <tr>
@@ -87,12 +81,13 @@
                     <tbody id="table-rows">
                         <tr v-for="letter in colLetters">
                             <th>{{letter}}</th>
-                            <td class="content" v-bind:id="'E'+letter + number" v-for="number in rowNumbers"></td>
+                            <td class="content" v-on:click="getSalvoId('E'+letter + number)" v-bind:id="'E'+letter + number" v-for="number in rowNumbers"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+             <div class="salvo-button " v-if="fireButton"><button class="btn btn-outline-secondary col-l-4" @click="postTheSalvoes()" type="button">Fire</button></div>
 
 
     </div>

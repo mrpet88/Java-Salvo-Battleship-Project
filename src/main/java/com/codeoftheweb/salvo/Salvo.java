@@ -2,7 +2,6 @@ package com.codeoftheweb.salvo;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,7 +24,7 @@ public class Salvo {
 
     @ElementCollection
     @Column(name="Salvolocation")
-    private List<String> Salvolocations = new ArrayList<>();
+    private List<String> locations;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="gamePlayer_id")
@@ -33,17 +32,17 @@ public class Salvo {
 
     public Salvo(){}
 
-    public Salvo(Integer turn, GamePlayer gamePlayer, List<String> SalvoLocation){
+    public Salvo(Integer turn, GamePlayer gamePlayer, List<String> locations){
         this.turn = turn;
         this.gamePlayer=gamePlayer;
-        this.Salvolocations = SalvoLocation;
+        this.locations = locations;
     }
     public List<String> getLocations() {
-        return Salvolocations;
+        return locations;
     }
 
     public void setLocations(List<String> locations) {
-        this.Salvolocations = Salvolocations;
+        this.locations = locations;
     }
 
     public int getTurn() {

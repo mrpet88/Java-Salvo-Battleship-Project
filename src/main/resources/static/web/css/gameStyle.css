@@ -5,21 +5,23 @@ body {
     background-position: center;
     background-size: cover;
     font-family: 'Montserrat', sans-serif;
-
+    line-height: 0px;
 }
 
 .flex-top-page {
     display: flex;
+    justify-content: space-between;
+    padding-left: 2vh;
+    padding-right: 2vh;
     height: 15vh;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: bottom;
     background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(118, 72, 72, 0.05)),
     to(rgba(97, 22, 22, 0.05)), color-stop(.5, #832525d4));
 }
 
-p {
+.player-names {
     color: white;
+    font-size: 20px;
+    text-align: center;
 }
 
 .headers {
@@ -27,17 +29,44 @@ p {
     background: rgba(255, 255, 255, 0.4);
 }
 
+.two-buttons {
+    align-self: center;
+}
+
+.submit-button {
+    align-self: center;
+    background: rgba(97, 22, 22, 0.7);
+}
+
+.submit-button > button {
+    color: white;
+}
+
+.submit-button > button:hover {
+    background: rgba(255, 255, 255);
+    color: rgba(97, 22, 22);
+}
+
 .flex-row {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+.only-one-table {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
 }
 
 .ship-location {
     background: blue;
-}
-
-.salvo-location {
-    background: green;
 }
 
 .hit {
@@ -136,8 +165,35 @@ th {
     -webkit-transform-origin: bottom left;
 }
 
-.btn {
-/*    background: #ccc;*/
-    color: white;
-    border-color: white;
+.salvo-location {
+    background-image: url(sea.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hit-location {
+    background-color: green;
+}
+
+.players-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: solid 1px white;
+    border-radius: 10px;
+    padding-left: 2vh;
+    padding-right: 2vh;
+
+}
+
+.salvo-button {
+    text-align: right;
+    margin-right: 2vh;
+}
+
+.salvo-button > button {
+    font-size: 20px;
+    width: 66vh;
+    background: rgba(97, 22, 22, 0.7);
 }

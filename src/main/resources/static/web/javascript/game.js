@@ -1,219 +1,3 @@
-//var clas = "";
-//var aircraftCarrier = [];
-//var battleship = [];
-//var destroyer = [];
-//var patrolboat = [];
-//var submarine = [];
-//var rowNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-//var colLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-//var allShipLocations = [];
-//var classOfShip = '';
-//
-//
-////function rotate(imgId){
-////    
-//////    img.removeAttribute('style','transform:rotate(90deg)');
-////    var img=document.getElementById(imgId);
-////    if (img.getAttribute==('style','transform:rotate(90deg)')){
-////        console.log("image get")
-////    img.removeAttribute('style','transform:rotate(90deg)');
-////}
-////    else{
-////    img.setAttribute('style','transform:rotate(90deg)');
-////}}
-//
-//function rotate(imgId) {
-//
-//    if ($("#" + imgId).hasClass("horizontal")) {
-//        $("#" + imgId).removeClass("horizontal").addClass("vertical")
-//        classOfShip = "horizontal"
-//        console.log(classOfShip);
-//
-//    } else {
-//        $("#" + imgId).removeClass("vertical").addClass("horizontal")
-//        classOfShip = "vertical"
-//        console.log(classOfShip);
-//
-//
-//
-//    }
-//
-//}
-//
-//
-//
-//
-//
-//function allowDrop(ev) {
-//    ev.preventDefault();
-//    console.log("allow drop");
-//}
-//
-//
-//function drag(ev) {
-//    //    var id = $(ev.target).attr('id');
-//    clas = $(ev.target).attr('class');
-//    console.log(" / class: " + clas);
-//    ev.dataTransfer.setData("text", ev.target.id);
-//    if (clas == "aircraftCarrier") {
-//        aircraftCarrier = [];
-//    } else if (clas == "battleship") {
-//        battleship = [];
-//    } else if (clas == "destroyer") {
-//        destroyer = [];
-//    } else if (clas == "patrolboat") {
-//        patrolboat = [];
-//    } else if (clas == "submarine") {
-//        submarine = [];
-//    }
-//    console.log("dragging")
-//
-//}
-//
-//function findNumber(arr, k) {
-//    for (var i = 0; i < arr.length; i++) {
-//        if (arr.includes(k[i])) {
-//            console.log("YES");
-//        } else {
-//            console.log("NO");
-//        }
-//    }
-//
-//}
-//
-//
-////findNumber(array, 1)
-////findNumber(array2, 5)
-//
-//
-//
-//function drop(ev) {
-//    console.log(ev)
-//    console.log(ev.toElement.classList.contains("cell"), !ev.toElement.classList.contains("ship-located"))
-//    if (ev.toElement.classList.contains("cell") && !ev.toElement.classList.contains("ship-located")) {
-//
-//        var _target = $("#" + ev.target.id);
-//        $("#" + ev.target.id).addClass("ship-located")
-//        console.log(ev.target.id);
-//        if ($(_target).hasClass("noDrop")) {
-//            ev.preventDefault();
-//            alert("Wrong Position")
-//        } else {
-//
-//            ev.preventDefault();
-//            var data = ev.dataTransfer.getData("text");
-//            ev.target.appendChild(document.getElementById(data));
-//            console.log("on drop");
-//            var letterNumberArray = ev.target.id.split(/(?=[1-9])/);
-//            console.log(letterNumberArray);
-//            var elementLetter = letterNumberArray[0]
-//            //            console.log(elementLetter)
-//            var elementLetterSliced = elementLetter.slice(1);
-//            console.log(elementLetterSliced);
-//
-//            var elementNumber = parseInt(letterNumberArray[1]);
-//            console.log(elementNumber)
-//
-//
-//            var locations = [];
-//
-//
-//            if ((classOfShip == "") || (classOfShip == "horizontal")) {
-//
-//                if ((clas == "aircraftCarrier") && (elementNumber <= 7)) {
-//                    for (var i = 0; i < 5; i++) {
-//                        var x = elementNumber;
-//
-//                        locations.push(elementLetterSliced + elementNumber)
-//                        console.log("locations:" + locations)
-//                        aircraftCarrier = locations
-//                        console.log(battleship)
-//                        elementNumber = x + 1;
-//
-//                    }
-//                } else if ((clas == "battleship") && (elementNumber <= 7)) {
-//                    for (var j = 0; j < 4; j++) {
-//
-//                        var x = elementNumber;
-//                        locations.push(elementLetterSliced + elementNumber)
-//                        console.log("locations:" + locations)
-//                        battleship = locations
-//                        console.log(aircraftCarrier)
-//
-//                        elementNumber = x + 1;
-//                    }
-//                } else if ((clas == "patrolboat") && (elementNumber <= 7)) {
-//                    for (var j = 0; j < 2; j++) {
-//
-//                        var x = elementNumber;
-//                        locations.push(elementLetterSliced + elementNumber)
-//                        console.log("locations:" + locations)
-//                        patrolboat = locations
-//                        console.log(patrolboat)
-//
-//                        elementNumber = x + 1;
-//                    }
-//                } else if ((clas == "destroyer") && (elementNumber <= 7)) {
-//                    for (var j = 0; j < 3; j++) {
-//
-//                        var x = elementNumber;
-//                        locations.push(elementLetterSliced + elementNumber)
-//                        console.log("locations:" + locations)
-//                        destroyer = locations
-//                        console.log(destroyer)
-//
-//                        elementNumber = x + 1;
-//                    }
-//                } else if ((clas == "submarine") && (elementNumber <= 7)) {
-//                    for (var j = 0; j < 3; j++) {
-//
-//                        var x = elementNumber;
-//                        locations.push(elementLetterSliced + elementNumber)
-//                        console.log("locations:" + locations)
-//                        submarine = locations
-//                        console.log(submarine)
-//                        elementNumber = x + 1;
-//                    }
-//                } else {
-//                    alert("Please place the ship inside the grid")
-//                }
-//            } else if (classOfShip == "vertical") {
-//                
-//            var data = ev.dataTransfer.getData("text");
-//            ev.target.appendChild(document.getElementById(data));
-//            console.log("on drop");
-//            var letterNumberArray = ev.target.id.split(/(?=[1-9])/);
-////            console.log(letterNumberArray);
-//            var elementLetter = letterNumberArray[0]
-//                        console.log(elementLetter)
-//            var elementLetterSliced = elementLetter.slice(1);
-////            console.log(elementLetterSliced);
-////
-//            var elementNumber = parseInt(letterNumberArray[1]);
-////            console.log(elementNumber)
-//                
-//                
-//                if ((clas == "aircraftCarrier") && (elementLetter <= 7)) {
-//                    for (var i = 0; i < 5; i++) {
-//                        var x = elementNumber;
-//
-//                        locations.push(elementLetterSliced + elementNumber)
-//                        console.log("locations:" + locations)
-//                        aircraftCarrier = locations
-//                        console.log(battleship)
-//                        elementNumber = x + 1;
-//
-//                    }
-//                }
-//
-//
-//            }
-//            var allLocations = aircraftCarrier.concat(battleship).concat(destroyer).concat(patrolboat).concat(submarine);
-//            allShipLocations = allLocations;
-//            console.log(allShipLocations);
-//        }
-//    }
-//}
 var arrayOfShips = [];
 var tableLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 var tableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -245,7 +29,6 @@ var newShip = [];
 //}
 //hhh();
 
-
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -258,6 +41,7 @@ function drop(ev) {
     if (ev.toElement.classList.contains("cell") && !ev.toElement.classList.contains("ship-located")) {
         var _target = $("#" + ev.target.id);
         $("#" + ev.target.id).addClass("ship-located")
+        console.log("#" + ev.target.id)
         if ($(_target).hasClass("noDrop")) {
             ev.preventDefault();
         } else {
@@ -267,6 +51,10 @@ function drop(ev) {
             fillArrayOfShips(ev.target.id)
         }
     }
+}
+
+function addlistener() {
+    document.getElementById()
 }
 
 function fillArrayOfShips(id) {
@@ -411,7 +199,6 @@ function placeShipBack(ship) {
     document.getElementById("ships-container").appendChild(ship)
 }
 
-
 var main = new Vue({
     el: '#VueMain',
     data: {
@@ -427,21 +214,84 @@ var main = new Vue({
         enemyHits: [],
         logOutButton: true,
         player: [],
-        secondPlayerGrid: false, //false
+        secondPlayerGrid: false,
         shipsObject: [],
-        placeShips: false, //false
+        placeShips: false,
         allTheShips: true,
+        salvoLocations: [],
+        salvosToPost: [],
+        fireButton: false,
 
     },
     created: function () {
         this.findTheId();
         start(this.id);
-        this.whatever2;
+        this.bothPlayersGrid();
 
     },
     methods: {
-        whatever: function () {
+        beforePlacingTheShips: function () {
+            if (this.secondPlayerGrid == false) {
+                var oneId = document.getElementById("r")
+                oneId.classList.add("only-one-table")
+                oneId.classList.remove("flex-row")
+            } else if (this.secondPlayerGrid == true) {
+                oneId.classList.add("flex-row")
+                oneId.classList.remove("only-one-table")
+            }
+        },
+        bothPlayersGrid: function () {
+            if ((this.playerTwo == this.playerTwo) && (this.playerOne == this.playerOne) && (this.playerTwo != "")) {
+                this.secondPlayerGrid = true;
+                this.allTheShips = false;
+            }
+        },
+        getSalvoId: function (salvoId) {
+            var salvoLocation = document.getElementById(salvoId);
+            if (salvoLocation.classList.contains("hit-location")) {
+                salvoLocation.classList.remove("hit-location")
+            } else {
+                salvoLocation.classList.add("hit-location")
+            }
+            if (salvoLocation.classList.contains("salvo-location")) {
+                salvoLocation.classList.remove("hit-location")
+                console.log(salvoLocation)
+            }
+            this.fillSalvoArray()
+        },
+        fillSalvoArray: function () {
+            var allTheSalvoCells = document.getElementsByClassName("hit-location")
+            var finalSalvoArrayCells = [];
+            for (var i = 0; i < allTheSalvoCells.length; i++) {
+                finalSalvoArrayCells.push(allTheSalvoCells[i].id);
+                if (finalSalvoArrayCells[i].charAt(0) === "E") {
+                    finalSalvoArrayCells[i] = finalSalvoArrayCells[i].substr(1)
+                }
+            }
+            console.log(finalSalvoArrayCells.length)
+            if (finalSalvoArrayCells.length == 5) {
+                this.fireButton = true;
+            } else {
+                this.fireButton = false;
+            }
+            if (finalSalvoArrayCells.length == 6) {
+                var theLastElement = finalSalvoArrayCells[0];
+                console.log(theLastElement)
+                document.getElementById("E"+theLastElement).classList.remove("hit-location");
+                finalSalvoArrayCells.shift();
+                console.log(finalSalvoArrayCells)
+            }
+                        this.salvosToPost = finalSalvoArrayCells;
+            console.log(this.salvosToPost)
+
+        },
+        postTheShips: function () {
             main.listOfShips(arrayOfShips, main.id)
+            alert("please reload the page")
+
+        },
+        postTheSalvoes: function () {
+            main.listOfSalvoes(main.id)
         },
         getGames: function () {
             fetch("/api/games", {
@@ -481,6 +331,7 @@ var main = new Vue({
                 })
         },
         listOfSalvoes: function (id) {
+            console.log()
             fetch("/api/games/players/" + id + "/salvos", {
                     credentials: 'include',
                     method: 'POST',
@@ -488,19 +339,10 @@ var main = new Vue({
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                            "salvo": [{
-                                "turn": "1",
-                                "locationSalvos": ["A1"]
-                                        }, {
-                                "turn": "2",
-                                "location": ["H5", "H6"]
-
-                                        }]
-                        })
+                    body: JSON.stringify(this.salvosToPost)
                 })
                 .then(response => {
-                console.log(response)
+                    console.log(response)
                     response.json().then(function (response) {
 
                     })
@@ -536,21 +378,30 @@ var main = new Vue({
             this.shipUserLocations = array;
         },
         salvoUserPosition: function () {
-            var userHits = [];
             for (var i = 0; i < this.game_view.UserSalvos.length; i++) {
-                {
-                    let turn = this.game_view.UserSalvos[i].turn;
-
-                    for (var k = 0; k < this.game_view.UserSalvos[i].location.length; k++) {
-                        var salvoLocation = this.game_view.UserSalvos[i].location[k];
-                        userHits.push(salvoLocation);
-                        document.getElementById("E" + salvoLocation).classList.add("salvo-location");
-                        document.getElementById("E" + salvoLocation).innerHTML = turn
-                    }
-                    this.userHits = userHits;
+                for (var j = 0; j < this.game_view.UserSalvos[i].location.length; j++) {
+                    var salvoLocation = this.game_view.UserSalvos[i].location[j]
+                    var cellId = "E" + salvoLocation;
+                    document.getElementById(cellId).classList.add("salvo-location");
                 }
             }
         },
+
+        //        salvoUserPosition: function () {
+        //            var userHits = [];
+        //            for (var i = 0; i < this.game_view.UserSalvos.length; i++) {
+        //                {
+        //                    let turn = this.game_view.UserSalvos[i].turn;
+        //                    for (var k = 0; k < this.game_view.UserSalvos[i].location.length; k++) {
+        //                        var salvoLocation = this.game_view.UserSalvos[i].location[k];
+        //                        userHits.push(salvoLocation);
+        //                        document.getElementById("E" + salvoLocation).classList.add("salvo-location");
+        //                        document.getElementById("E" + salvoLocation).innerHTML = turn
+        //                    }
+        //                    this.userHits = userHits;
+        //                }
+        //            }
+        //        },
         salvoEnemyPosition: function () {
             var enemySalvos = [];
             for (var i = 0; i < this.game_view.EnemySalvos.length; i++) {
@@ -646,17 +497,25 @@ function onConversionToJsonSuccessful(json) {
     if (data.ships.length == 5) {
         main.allTheShips = false;
         main.secondPlayerGrid = true;
-
     }
+    //    setTimeout(function(){
     console.log(arrayOfShips);
     console.log(main.allTheShips)
     main.game_view = data;
     main.userShipPosition()
     main.getTheName()
-    main.salvoUserPosition()
-    main.salvoEnemyPosition()
-    main.shipIsHit(main.shipUserLocations, main.salvoEnemyLocations, "U");
-    main.hideTheShips();
+    main.beforePlacingTheShips();
+
+    //        main.salvoEnemyPosition()
+    //        main.shipIsHit(main.shipUserLocations, main.salvoEnemyLocations, "U");
+    //        main.hideTheShips();
+    for (var i = 0; i < main.game_view.UserSalvos.length; i++) {
+        if (main.game_view.UserSalvos[i].location.length == 5) {
+            main.salvoUserPosition()
+        }
+
+    }
+    //    },1000)
 
 
 }
