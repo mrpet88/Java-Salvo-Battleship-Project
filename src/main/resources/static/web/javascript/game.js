@@ -227,7 +227,6 @@ var main = new Vue({
     created: function () {
         this.findTheId();
         start(this.id);
-        this.bothPlayersGrid();
 
     },
     methods: {
@@ -242,28 +241,30 @@ var main = new Vue({
             }
         },
         bothPlayersGrid: function () {
-            if ((this.playerTwo == this.playerTwo) && (this.playerOne == this.playerOne) && (this.playerTwo != "")) {
-                this.secondPlayerGrid = true;
-                this.allTheShips = false;
+            for (var i=0; i<this.game_view.ships.length; i++){
+                if (this.game_view.ships.length>0){
+                    this.secondPlayerGrid=true
+                    this.allTheShips=false
+                }
             }
         },
         getSalvoId: function (salvoId) {
-            if (!this.salvoesCells.includes(salvoId)) {
-                this.salvoesCells.push(salvoId);
-            } else {
-                var index = this.salvoesCells.indexOf(salvoId);
-                if (index > -1) {
-                    document.getElementById("E" + this.salvoesCells.splice(index, 1)).classList.remove('hit-location');
+            if (!document.getElementById("E" + salvoId).classList.contains("salvo-location")) {
+                if (!this.salvoesCells.includes(salvoId)) {
+                    this.salvoesCells.push(salvoId);
+                } else {
+                    var index = this.salvoesCells.indexOf(salvoId);
+                    if (index > -1) {
+                        document.getElementById("E" + this.salvoesCells.splice(index, 1)).classList.remove('hit-location');
+                    }
                 }
-            }
-//            if (document.getElementById("E" + this.salvoesCells.splice(0, 1)).classList.contains('salvo-location')){
-//                document.getElementById("E" + this.salvoesCells.splice(0, 1)).classList.remove('hit-location');
-//            }
             this.fillSalvoArray()
+            }
         },
         fillSalvoArray: function () {
             var cells = this.salvoesCells;
-            console.log(cells)
+            //            console.log(cells)
+            console.log(this.salvoesCells)
             if (cells.length > 5) {
                 document.getElementById("E" + cells.splice(0, 1)).classList.remove('hit-location');
             }
@@ -275,7 +276,7 @@ var main = new Vue({
             } else {
                 this.fireButton = false;
             }
-            
+
             this.salvosToPost = cells
         },
         postTheShips: function () {
@@ -498,6 +499,8 @@ function onConversionToJsonSuccessful(json) {
     main.game_view = data;
     main.userShipPosition()
     main.getTheName()
+    main.bothPlayersGrid();
+
     console.log("marinos")
 
     //        main.salvoEnemyPosition()

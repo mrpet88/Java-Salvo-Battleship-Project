@@ -13,15 +13,22 @@ var main = new Vue({
         playerTwo: "",
         hidetable: false,
         notable: true,
-        id: ""
+        id: "",
+        isActive: false,
     },
     created: function () {
         this.getGames()
         this.hideGameTable()
-        //        this.joinAgame()
-
     },
     methods: {
+        giveClass: function () {
+            for (var i = 0; i < main.leaderboard.length; i++) {
+                if (main.leaderboard[i].name == main.playerName) {
+                    
+                    this.isActive = true;
+                }
+            }
+        },
         hideGameTable: function () {
             console.log(this.playerName)
             if (this.playerName == '') {
@@ -51,7 +58,6 @@ var main = new Vue({
 
                 })
         },
-
 
         logIn: function () {
             var message = ""
@@ -214,55 +220,55 @@ var main = new Vue({
                 .catch(response => console.log(response));
         },
         joinAgame: function (id) {
-                fetch("/api/game/" + id + "/players", {
-                        credentials: 'include',
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                    })
-                    .then(response => {
-                            response.json().then(function (response) {
-                                    console.log(response);
-                                    window.location.replace("/web/game.html?gp=" + response.gamePlayerID.id)
-                            })
-
-
+            fetch("/api/game/" + id + "/players", {
+                    credentials: 'include',
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                })
+                .then(response => {
+                    response.json().then(function (response) {
+                        console.log(response);
+                        window.location.replace("/web/game.html?gp=" + response.gamePlayerID.id)
                     })
 
+
+                })
+
+                .catch(function (e) {
+                    console.log(e)
+
+                })
+        }
+
+    },
+
+    signUp: function () {
+        var message = ""
+        var userName = document.getElementById("username").value
+
+        var password = document.getElementById("password").value
+        console.log(password);
+        fetch("/api/players", {
+                credentials: 'include',
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'userName=' + userName + '&password=' + password,
+            })
+            .then(response => {
+                if (response.status == 201) {
+                    location.reload();
+                }
+            })
             .catch(function (e) {
                 console.log(e)
-
             })
-    }
-
-},
-
-signUp: function () {
-    var message = ""
-    var userName = document.getElementById("username").value
-
-    var password = document.getElementById("password").value
-    console.log(password);
-    fetch("/api/players", {
-            credentials: 'include',
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'userName=' + userName + '&password=' + password,
-        })
-        .then(response => {
-            if (response.status == 201) {
-                location.reload();
-            }
-        })
-        .catch(function (e) {
-            console.log(e)
-        })
-},
+    },
 
 });
 start();

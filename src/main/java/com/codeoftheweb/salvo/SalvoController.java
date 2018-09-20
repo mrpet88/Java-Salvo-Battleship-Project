@@ -133,6 +133,7 @@ public class SalvoController {
             if (gamePlayer.getGame().getGamePlayers().size() == 2) {
                 GamePlayer enemy = getEnemyGamePlayer(gamePlayer);
                 gameViewMap.put("EnemySalvos", salvoList(enemy));
+                gameViewMap.put("hits",getHits(gamePlayer));
             }
             gameViewMap.put("UserSalvos", salvoList(gamePlayer));
             return new ResponseEntity<>(makeMap("game-view", gameViewMap), HttpStatus.ACCEPTED);
@@ -145,6 +146,47 @@ public class SalvoController {
     private Player currentPlayer(Authentication authentication) {
         return playerRepository.findByUserName(authentication.getName()).get(0);
     }
+
+    private List<String> getShipLocations (GamePlayer gamePlayer) {
+        List<String> getShipLocations = new ArrayList<>();
+        Set<Ship> ships = gamePlayer.getShip();
+        for (Ship ship: ships) {
+            List<String> eachLocation = ship.getLocations();
+            for (String location: eachLocation) {
+                getShipLocations.add(location);
+            }
+        }
+        return getShipLocations;
+    }
+ private List<String> getSalvoLocation (GamePlayer gamePlayer) {
+        List<String> getSalvoLocation = new ArrayList<>();
+        Set<Salvo> salvos = gamePlayer.getSalvo();
+        for (Salvo salvo: salvos ) {
+            List<String> eachLocation = salvo.getLocations();
+            for (String location: eachLocation) {
+                getSalvoLocation.add(location);
+            }
+        }
+        return getSalvoLocation;
+    }
+
+
+
+    private List<String> getHits (GamePlayer gamePlayer) {
+        List<String> getHits = new ArrayList<>();
+        List<String> shipLocations = getShipLocations(gamePlayer);
+        List<String> salvoLocations = getSalvoLocation(gamePlayer);
+
+        for (String salvoLocation: salvoLocations) {
+            for (String shipLocation: shipLocations) {
+                if (salvoLocation == shipLocation) {
+                    getHits.add(salvoLocation);
+                }
+            }
+        }
+        return getHits;
+    }
+
 
 
     private Map<String, Object> fillTheShipTypeDTO(Ship ship) {

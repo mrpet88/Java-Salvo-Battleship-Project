@@ -45,8 +45,8 @@
                         <th class="text-center">Losts</th>
                     </tr>
                     <tbody>
-                        <tr v-for="data in leaderboard">
-                            <td>{{data.name}}</td>
+                        <tr v-for="data in leaderboard" v-bind:class="{ active: isActive}">
+                            <td >{{data.name}}</td>
                             <td class="text-center">{{data.totalScore}}</td>
                             <td class="text-center">{{data.numberOfWins}}</td>
                             <td class="text-center">{{data.numberOfTies}}</td>
