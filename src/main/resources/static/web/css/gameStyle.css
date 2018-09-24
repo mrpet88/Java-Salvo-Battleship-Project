@@ -197,3 +197,10 @@ th {
     width: 66vh;
     background: rgba(97, 22, 22, 0.7);
 }
+.sunk-location{
+    background-color: red;
+    
+}
+.sunk-user-location{
+    background-color: hotpink;
+}

@@ -3,32 +3,6 @@ var tableLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 var tableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 var newShip = [];
 
-//function hhh(){
-//$.post({
-//  url: "/games/players/17/ships", 
-//  data: JSON.stringify ({
-//                "salvo": [{
-//                    "turn": "1",
-//                    "locations": ["A1"]
-//                                        }, {
-//                    "turn": "2",
-//                    "location": ["H5", "H6"]
-//
-//                                        }]
-//            }),
-//  dataType: "text",
-//  contentType: "application/json"
-//})
-//.done(function (response, status, jqXHR) {
-//  alert( "Ships added: " + response );
-//})
-//.fail(function (jqXHR, status, httpError) {
-//  alert("Failed to add ships: " + textStatus + " " + httpError);
-//})
-//
-//}
-//hhh();
-
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -230,6 +204,28 @@ var main = new Vue({
 
     },
     methods: {
+        findTheSunkShips: function () {
+            for (var i = 0; i < this.game_view.hits.length; i++) {
+                var sunkLocations = "E" + this.game_view.hits[i]
+                document.getElementById(sunkLocations).classList.remove("salvo-location")
+                document.getElementById(sunkLocations).classList.add("sunk-location");
+
+            }
+        },
+        findTheUserSunkShips: function () {
+            for (var i = 0; i < this.game_view.ships.length; i++) {
+                for (var j = 0; j < this.game_view.ships[i].location.length; j++) {
+                    if (this.game_view.ships[i].sunk == true) {
+                        var sunkUserLocations = "U" + this.game_view.ships[i].location[j]
+                        console.log(sunkUserLocations)
+                        document.getElementById(sunkUserLocations).classList.remove("salvo-location")
+                        document.getElementById(sunkUserLocations).classList.remove("ship-location")
+                        document.getElementById(sunkUserLocations).classList.add("sunk-user-location");
+                    }
+                }
+            }
+        },
+
         beforePlacingTheShips: function () {
             if (this.secondPlayerGrid == false) {
                 var oneId = document.getElementById("r")
@@ -241,10 +237,10 @@ var main = new Vue({
             }
         },
         bothPlayersGrid: function () {
-            for (var i=0; i<this.game_view.ships.length; i++){
-                if (this.game_view.ships.length>0){
-                    this.secondPlayerGrid=true
-                    this.allTheShips=false
+            for (var i = 0; i < this.game_view.ships.length; i++) {
+                if (this.game_view.ships.length > 0) {
+                    this.secondPlayerGrid = true
+                    this.allTheShips = false
                 }
             }
         },
@@ -258,7 +254,7 @@ var main = new Vue({
                         document.getElementById("E" + this.salvoesCells.splice(index, 1)).classList.remove('hit-location');
                     }
                 }
-            this.fillSalvoArray()
+                this.fillSalvoArray()
             }
         },
         fillSalvoArray: function () {
@@ -382,21 +378,21 @@ var main = new Vue({
             }
         },
 
-        //        salvoUserPosition: function () {
-        //            var userHits = [];
-        //            for (var i = 0; i < this.game_view.UserSalvos.length; i++) {
-        //                {
-        //                    let turn = this.game_view.UserSalvos[i].turn;
-        //                    for (var k = 0; k < this.game_view.UserSalvos[i].location.length; k++) {
-        //                        var salvoLocation = this.game_view.UserSalvos[i].location[k];
-        //                        userHits.push(salvoLocation);
-        //                        document.getElementById("E" + salvoLocation).classList.add("salvo-location");
-        //                        document.getElementById("E" + salvoLocation).innerHTML = turn
-        //                    }
-        //                    this.userHits = userHits;
-        //                }
-        //            }
-        //        },
+        salvoUserPosition1: function () {
+            var userHits = [];
+            for (var i = 0; i < this.game_view.UserSalvos.length; i++) {
+                {
+                    let turn = this.game_view.UserSalvos[i].turn;
+                    for (var k = 0; k < this.game_view.UserSalvos[i].location.length; k++) {
+                        var salvoLocation = this.game_view.UserSalvos[i].location[k];
+                        userHits.push(salvoLocation);
+                        document.getElementById("E" + salvoLocation).classList.add("salvo-location");
+                        document.getElementById("E" + salvoLocation).innerHTML = turn
+                    }
+                    this.userHits = userHits;
+                }
+            }
+        },
         salvoEnemyPosition: function () {
             var enemySalvos = [];
             for (var i = 0; i < this.game_view.EnemySalvos.length; i++) {
@@ -408,7 +404,6 @@ var main = new Vue({
                     document.getElementById("U" + salvoLocation).innerHTML = turn
                 }
                 this.salvoEnemyLocations = enemySalvos;
-
             }
         },
         shipIsHit: function (ship, salvo, letter) {
@@ -500,10 +495,10 @@ function onConversionToJsonSuccessful(json) {
     main.userShipPosition()
     main.getTheName()
     main.bothPlayersGrid();
-
-    console.log("marinos")
-
-    //        main.salvoEnemyPosition()
+    main.salvoEnemyPosition()
+    main.salvoUserPosition1()
+    main.findTheSunkShips();
+    main.findTheUserSunkShips();
     //        main.shipIsHit(main.shipUserLocations, main.salvoEnemyLocations, "U");
     //        main.hideTheShips();
     for (var i = 0; i < main.game_view.UserSalvos.length; i++) {
@@ -513,6 +508,7 @@ function onConversionToJsonSuccessful(json) {
         }
     }
     main.beforePlacingTheShips();
+
 
     //    },1000)
 

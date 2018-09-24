@@ -126,21 +126,24 @@ public class SalvoController {
     public ResponseEntity<Map<String, Object>> gameView(@PathVariable Long id, Authentication authentication) {
         GamePlayer gamePlayer = gamePlayerRepository.findOne(id);
 
+
         if (gamePlayer.getPlayer().getId() == currentPlayer(authentication).getId()) {
             Map<String, Object> gameViewMap = new HashMap<>();
-            gameViewMap.put("game", makeGamesDTO(gamePlayer.getGame()));
-            gameViewMap.put("ships", gamePlayer.getShip().stream().map(ship -> fillTheShipTypeDTO(ship)).collect(toList()));
             if (gamePlayer.getGame().getGamePlayers().size() == 2) {
+                eachShipSunk(gamePlayer);
+                eachShipSunk(getEnemyGamePlayer(gamePlayer));
                 GamePlayer enemy = getEnemyGamePlayer(gamePlayer);
                 gameViewMap.put("EnemySalvos", salvoList(enemy));
                 gameViewMap.put("hits",getHits(gamePlayer));
             }
+            gameViewMap.put("game", makeGamesDTO(gamePlayer.getGame()));
+            gameViewMap.put("ships", gamePlayer.getShip().stream().map(ship -> fillTheShipTypeDTO(ship)).collect(toList()));
             gameViewMap.put("UserSalvos", salvoList(gamePlayer));
             return new ResponseEntity<>(makeMap("game-view", gameViewMap), HttpStatus.ACCEPTED);
         } else {
             return new ResponseEntity<>(makeMap("error", "This is not your game!")
-                    , HttpStatus.FORBIDDEN);
-        }
+                , HttpStatus.FORBIDDEN);
+    }
     }
 
     private Player currentPlayer(Authentication authentication) {
@@ -170,8 +173,6 @@ public class SalvoController {
         return getSalvoLocation;
     }
 
-
-
     private List<String> getHits (GamePlayer gamePlayer) {
         List<String> getHits = new ArrayList<>();
         List<String> shipLocations = getShipLocations(gamePlayer);
@@ -187,12 +188,33 @@ public class SalvoController {
         return getHits;
     }
 
+    private  Boolean shipIsSunk(List<String> SalvoLocations, Ship ship){
 
+        boolean shipisSunk= ship.getLocations()
+                .stream()
+                .allMatch(location -> SalvoLocations.contains(location));
+        if (shipisSunk){
+            ship.setSunk(true);
+            shipRepository.save(ship);
+        }
+        return shipisSunk;
+    }
+
+    private  void eachShipSunk(GamePlayer gamePlayer){
+        GamePlayer enemy= getEnemyGamePlayer(gamePlayer);
+        Set<Ship>enemyShips =enemy.getShip();
+        List<String>playerSalvoes =getSalvoLocation(gamePlayer);
+        enemyShips
+                .stream()
+                .filter(ship -> !ship.getSunk())
+                .forEach(ship -> shipIsSunk(playerSalvoes,ship));
+    }
 
     private Map<String, Object> fillTheShipTypeDTO(Ship ship) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("type", ship.getShipType());
         dto.put("location", ship.getLocations());
+        dto.put("sunk", ship.getSunk());
         return dto;
     }
 

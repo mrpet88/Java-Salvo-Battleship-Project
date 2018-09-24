@@ -12,6 +12,7 @@ public class Ship {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     private String shipType;
+    private Boolean sunk;
 
     @JsonIgnore
     public GamePlayer getGamePlayer() {
@@ -50,6 +51,7 @@ public class Ship {
             this.shipType = shipType;
             this.gamePlayer = gamePlayer;
             this.locations = locations;
+            this.sunk = false;
     }
 
     public List<String> getLocations() {
@@ -58,5 +60,13 @@ public class Ship {
 
     public void setLocations(List<String> locations) {
         this.locations = locations;
+    }
+
+    public Boolean getSunk() {
+        return sunk;
+    }
+
+    public void setSunk(Boolean sunk) {
+        this.sunk = sunk;
     }
 }
