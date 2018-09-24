@@ -135,9 +135,11 @@ public class SalvoController {
                 GamePlayer enemy = getEnemyGamePlayer(gamePlayer);
                 gameViewMap.put("EnemySalvos", salvoList(enemy));
                 gameViewMap.put("hits",getHits(gamePlayer));
+                gameViewMap.put("enemyShips", enemy.getShip().stream().map(ship -> shipStatus(ship)).collect(toList()));
             }
             gameViewMap.put("game", makeGamesDTO(gamePlayer.getGame()));
             gameViewMap.put("ships", gamePlayer.getShip().stream().map(ship -> fillTheShipTypeDTO(ship)).collect(toList()));
+
             gameViewMap.put("UserSalvos", salvoList(gamePlayer));
             return new ResponseEntity<>(makeMap("game-view", gameViewMap), HttpStatus.ACCEPTED);
         } else {
@@ -161,6 +163,8 @@ public class SalvoController {
         }
         return getShipLocations;
     }
+
+
  private List<String> getSalvoLocation (GamePlayer gamePlayer) {
         List<String> getSalvoLocation = new ArrayList<>();
         Set<Salvo> salvos = gamePlayer.getSalvo();
@@ -215,6 +219,15 @@ public class SalvoController {
         dto.put("type", ship.getShipType());
         dto.put("location", ship.getLocations());
         dto.put("sunk", ship.getSunk());
+        return dto;
+    }
+    private Map<String, Object> shipStatus(Ship ship) {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        if (ship.getSunk()) {
+            dto.put("type", ship.getShipType());
+            dto.put("location", ship.getLocations());
+            dto.put("sunk", ship.getSunk());
+        }
         return dto;
     }
 

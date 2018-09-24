@@ -217,7 +217,6 @@ var main = new Vue({
                 for (var j = 0; j < this.game_view.ships[i].location.length; j++) {
                     if (this.game_view.ships[i].sunk == true) {
                         var sunkUserLocations = "U" + this.game_view.ships[i].location[j]
-                        console.log(sunkUserLocations)
                         document.getElementById(sunkUserLocations).classList.remove("salvo-location")
                         document.getElementById(sunkUserLocations).classList.remove("ship-location")
                         document.getElementById(sunkUserLocations).classList.add("sunk-user-location");
